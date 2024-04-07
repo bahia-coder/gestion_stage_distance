@@ -14,7 +14,7 @@ class StagaireController extends Controller
      */
     public function index()
     {
-        //
+        return('hii');
     }
 
     /**

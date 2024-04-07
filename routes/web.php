@@ -27,3 +27,8 @@ Route::get('/', function () {
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::get('/homee', [App\Http\Controllers\Auth\LoginController::class, 'index'])->name('home');
+
+
+        Route::group(['middleware' => ['auth']], function () {
+            Route::resource('Departement', 'DepartementController');
+        });

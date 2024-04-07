@@ -13,15 +13,20 @@
 
 <div class="container-fluid">
 <div class="row g-4 mb-4">
-                    <div class="col-sm-6 col-xl-3" style=" cursor: pointer;">
-                        <div class="bg-secondary rounded d-flex align-items-center justify-content-between p-4">
-                            <i class="fa fa-chart-line fa-3x text-primary"></i>
-                            <div class="ms-3">
-                                <p class="mb-2">Departement</p>
-                                <h6 class="mb-0">{{\App\Models\Departement::count()}}</h6>
-                            </div>
-                        </div>
-                    </div>
+
+<div class="col-sm-6 col-xl-3" style="cursor: pointer;">
+    <div class="bg-info rounded d-flex align-items-center justify-content-between p-4">
+        <i class="fa fa-chart-line fa-3x text-light"></i> <!-- Couleur de l'icône -->
+        <div class="ms-3">
+            <p class="mb-2 text-light">Departement</p> <!-- Couleur du texte -->
+            <h6 class="mb-0 text-light">{{ \App\Models\Departement::count() }}</h6> <!-- Couleur du texte -->
+        </div>
+    </div>
+    <a href="{{ route('Departement.index') }}" class="small-box-footer text-primary"> <!-- Couleur du texte -->
+        More info <i class="fas fa-arrow-circle-right"></i>
+    </a>
+</div>
+
                     <div class="col-sm-6 col-xl-3"style=" cursor: pointer;">
                         <div class="bg-secondary rounded d-flex align-items-center justify-content-between p-4">
                             <i class="fa fa-chart-bar fa-3x text-primary"></i>
@@ -403,4 +408,9 @@
 
 
         </div>
+    @endsection
+
+    @section('js')
+
+    <script src="{{ URL::asset('assets/libs/apexcharts/dist/apexcharts.min.js') }}"></script>
     @endsection

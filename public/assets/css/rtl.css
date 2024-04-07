@@ -55,7 +55,7 @@ NOTE: This file includes all admin Template plugins and Shortcodes. If you don't
   --gray: #6c757d;
   --gray-dark: #343a40;
   --primary: #007bff;
-  --secondary: #6c757d;
+  --secondary: #007bff;
   --success: #28a745;
   --info: #17a2b8;
   --warning: #ffc107;
@@ -16165,6 +16165,7 @@ div.dataTables_wrapper div.dataTables_paginate {
   margin: 0;
   white-space: nowrap;
   text-align: right; }
+
 
 div.dataTables_wrapper div.dataTables_paginate ul.pagination {
   margin: 2px 0;
