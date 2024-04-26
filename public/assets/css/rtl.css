@@ -18,7 +18,7 @@ NOTE: This file includes all admin Template plugins and Shortcodes. If you don't
 5. Typography
 6. Components
 	- Accordion
-	- Button
+	- Button datatable
 	- Lists
 	- Nice Select
 	- Pricing
@@ -55,7 +55,7 @@ NOTE: This file includes all admin Template plugins and Shortcodes. If you don't
   --gray: #6c757d;
   --gray-dark: #343a40;
   --primary: #007bff;
-  --secondary: #007bff;
+  --secondary: #6c757d;
   --success: #28a745;
   --info: #17a2b8;
   --warning: #ffc107;
@@ -99,6 +99,18 @@ main,
 nav,
 section {
   display: block; }
+  /* Styles par défaut pour les éléments de formulaire */
+form input,
+form textarea {
+    border: 1px solid blue; /* Bordure par défaut */
+}
+
+/* Styles lorsque l'élément de formulaire est en état de focus */
+form input:focus,
+form textarea:focus {
+    border-color: #8ea5ca; /* Couleur de la bordure lorsqu'en focus */
+}
+
 
 body {
   margin: 0;
@@ -16165,7 +16177,6 @@ div.dataTables_wrapper div.dataTables_paginate {
   margin: 0;
   white-space: nowrap;
   text-align: right; }
-
 
 div.dataTables_wrapper div.dataTables_paginate ul.pagination {
   margin: 2px 0;

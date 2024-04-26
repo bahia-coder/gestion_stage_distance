@@ -1,7 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Broadcast;
-
+use App\Models\Employe;
+use App\Models\Stagaire;
 /*
 |--------------------------------------------------------------------------
 | Broadcast Channels
@@ -16,3 +17,11 @@ use Illuminate\Support\Facades\Broadcast;
 Broadcast::channel('App.Models.User.{id}', function ($user, $id) {
     return (int) $user->id === (int) $id;
 });
+Broadcast::channel('chat.{receiver_id}', function (Employe $user, $receiver_id) {
+    return $user->id == $receiver_id;
+}, ['guards' => ['web', 'stagaire', 'employe','api']]);
+
+Broadcast::channel('chat2.{receiver_id}', function (Stagaire $user, $receiver_id) {
+    return $user->id == $receiver_id;
+}, ['guards' => ['web', 'stagaire', 'employe', 'api']]);
+

@@ -3,7 +3,7 @@
  * https://jquery.com/
  *
  * Includes Sizzle.js
- * https://sizzlejs.com/
+ * https://sizzlejs.com/ repe
  *
  * Copyright JS Foundation and other contributors
  * Released under the MIT license

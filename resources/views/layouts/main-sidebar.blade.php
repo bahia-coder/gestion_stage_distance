@@ -4,7 +4,9 @@
       <div>
         <div class="brand-logo d-flex align-items-center justify-content-between">
           <a href="./index.html" class="text-nowrap logo-img">
-            <img src="../assets/images/logos/dark-logo.svg" width="180" alt="" />
+          <img src="{{asset('storage/imgs/attachments/logo/'. \App\Models\Setting::where('key', 'logo')->value('value') )}}" width="100" height="100" style="margin-left:50px;" alt="" />
+
+
           </a>
           <div class="close-btn d-xl-none d-block sidebartoggler cursor-pointer" id="sidebarCollapse">
             <i class="ti ti-x fs-8"></i>
@@ -18,55 +20,55 @@
               <span class="hide-menu">Home</span>
             </li>
             <li class="sidebar-item">
-              <a class="sidebar-link" href="./index.html" aria-expanded="false">
+              <a class="sidebar-link" href="/home" aria-expanded="false">
                 <span>
-                  <i class="ti ti-layout-dashboard"></i>
+                  <i class="fa fa-home fa-1.5x"></i>
                 </span>
                 <span class="hide-menu">Dashboard</span>
               </a>
             </li>
             <li class="nav-small-cap">
               <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
-              <span class="hide-menu">UI COMPONENTS</span>
+              <span class="hide-menu">PAGES</span>
             </li>
             <li class="sidebar-item">
-              <a class="sidebar-link" href="./ui-buttons.html" aria-expanded="false">
+              <a class="sidebar-link" href="/Departement" aria-expanded="false">
                 <span>
-                  <i class="ti ti-article"></i>
+                  <i class="fas fa-list fa-1x"></i>
                 </span>
-                <span class="hide-menu">Buttons</span>
+                <span class="hide-menu">Departement</span>
               </a>
             </li>
             <li class="sidebar-item">
-              <a class="sidebar-link" href="./ui-alerts.html" aria-expanded="false">
+              <a class="sidebar-link" href="/Employe" aria-expanded="false">
                 <span>
-                  <i class="ti ti-alert-circle"></i>
+                  <i class="fas fa-user-tie fa-1x"></i>
                 </span>
-                <span class="hide-menu">Alerts</span>
+                <span class="hide-menu">Employes</span>
               </a>
             </li>
             <li class="sidebar-item">
-              <a class="sidebar-link" href="./ui-card.html" aria-expanded="false">
+              <a class="sidebar-link" href="/Stagaire" aria-expanded="false">
                 <span>
-                  <i class="ti ti-cards"></i>
+                  <i class="fas fa-user-graduate fa-1x"></i>
                 </span>
-                <span class="hide-menu">Card</span>
+                <span class="hide-menu">Stagaires</span>
               </a>
             </li>
             <li class="sidebar-item">
-              <a class="sidebar-link" href="./ui-forms.html" aria-expanded="false">
+              <a class="sidebar-link" href="/Project" aria-expanded="false">
                 <span>
-                  <i class="ti ti-file-description"></i>
+                  <i class="fa fa-cubes fa-1x"></i>
                 </span>
-                <span class="hide-menu">Forms</span>
+                <span class="hide-menu">Projects</span>
               </a>
             </li>
             <li class="sidebar-item">
-              <a class="sidebar-link" href="./ui-typography.html" aria-expanded="false">
+              <a class="sidebar-link" href="/annonce" aria-expanded="false">
                 <span>
-                  <i class="ti ti-typography"></i>
+                  <i class="fas fa-layer-group"></i>
                 </span>
-                <span class="hide-menu">Typography</span>
+                <span class="hide-menu">Annonces</span>
               </a>
             </li>
             <li class="nav-small-cap">
@@ -74,19 +76,45 @@
               <span class="hide-menu">AUTH</span>
             </li>
             <li class="sidebar-item">
-              <a class="sidebar-link" href="./authentication-login.html" aria-expanded="false">
+            @if(auth('stagaire')->check())
+            <a class="sidebar-link"  href="{{ route('logout','stagaire') }}" aria-expanded="false">
                 <span>
                   <i class="ti ti-login"></i>
                 </span>
-                <span class="hide-menu">Login</span>
+                <span class="hide-menu">Logout</span>
               </a>
+                                    <form id="logout-form" action="{{ route('logout','stagaire') }}" method="GET" class="d-none">
+                                        @csrf
+                                    </form>
+                        @elseif(auth('employe')->check())
+                        <a class="sidebar-link"  href="{{ route('logout','employe') }}" aria-expanded="false">
+                <span>
+                  <i class="ti ti-login"></i>
+                </span>
+                <span class="hide-menu">Logout</span>
+              </a>
+                                    <form id="logout-form" action="{{ route('logout','employe') }}" method="GET" class="d-none">
+                                        @csrf
+                                    </form>
+                                      @else
+                                      <a class="sidebar-link"  href="{{ route('logout','web') }}" aria-expanded="false">
+                <span>
+                  <i class="ti ti-login"></i>
+                </span>
+                <span class="hide-menu">Logout</span>
+              </a>
+                                    <form id="logout-form" action="{{ route('logout','web') }}" method="GET" class="d-none">
+                                        @csrf
+                                    </form>
+                                      @endif
+           
             </li>
             <li class="sidebar-item">
-              <a class="sidebar-link" href="./authentication-register.html" aria-expanded="false">
+              <a class="sidebar-link" href="{{route('settings.index')}}" aria-expanded="false">
                 <span>
-                  <i class="ti ti-user-plus"></i>
+                  <i class="fa fa-cogs"></i>
                 </span>
-                <span class="hide-menu">Register</span>
+                <span class="hide-menu">Settings</span>
               </a>
             </li>
             <li class="nav-small-cap">
@@ -94,13 +122,27 @@
               <span class="hide-menu">EXTRA</span>
             </li>
             <li class="sidebar-item">
-              <a class="sidebar-link" href="./icon-tabler.html" aria-expanded="false">
-                <span>
-                  <i class="ti ti-mood-happy"></i>
-                </span>
-                <span class="hide-menu">Icons</span>
-              </a>
-            </li>
+  <a class="sidebar-link" href="#" aria-expanded="false" id="demmande">
+    <span>
+      <i class="	fas fa-users"></i>
+    </span>
+    <span class="hide-menu">Demmandes</span>
+    <span class="badge badge-pill  ml-auto" style='font-size:24px'><i class="fas fa-angle-down"></i></span> <!-- Facultatif : vous pouvez ajouter un badge pour les nouveaux éléments -->
+  </a>
+  <ul class="sidebar-submenu" style="display: none;"> <!-- Ajoutez un style pour masquer le menu déroulant par défaut -->
+    <li class="sidebar-item">
+      <a class="sidebar-link" href="{{route('Demmande.index')}}">Current</a>
+    </li>
+    <li class="sidebar-item">
+      <a class="sidebar-link" href="{{route('liste_confirmer')}}">Confirmed</a>
+    </li>
+    <li class="sidebar-item">
+      <a class="sidebar-link" href="{{route('liste_annuler')}}">annuler</a>
+    </li>
+    <!-- Ajoutez d'autres éléments de menu déroulant au besoin -->
+  </ul>
+</li>
+
             <li class="sidebar-item">
               <a class="sidebar-link" href="./sample-page.html" aria-expanded="false">
                 <span>

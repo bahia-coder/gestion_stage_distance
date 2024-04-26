@@ -2,7 +2,6 @@
     "private": true,
     "scripts": {
         "dev": "npm run development",
-        
         "development": "mix",
         "watch": "mix watch",
         "watch-poll": "mix watch -- --watch-options-poll=1000",
@@ -21,5 +20,11 @@
         "postcss": "^8.1.14",
         "sass": "^1.56.1",
         "vite": "^5.2.8"
+    },
+    "dependencies": {
+        "@fullcalendar/core": "^6.1.11",
+        "@fullcalendar/daygrid": "^6.1.11",
+        "laravel-echo": "^1.16.1",
+        "pusher-js": "^8.4.0-rc2"
     }
 }

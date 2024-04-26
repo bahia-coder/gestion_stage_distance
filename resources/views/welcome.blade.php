@@ -4,7 +4,12 @@
 
 @endsection
 @section('css')
-
+<style>
+  .chart{
+    width:"10";
+    height:"10";
+  }
+</style>
 
 @endsection
 
@@ -13,47 +18,60 @@
 
 <div class="container-fluid">
 <div class="row g-4 mb-4">
+<div class="col-sm-6 col-xl-3"style=" cursor: pointer;">
+                        <div class="bg-info rounded d-flex align-items-center justify-content-between p-4">
+                            <i class="fa fa-cubes  fa-3x text-dark"></i>
+                            <div class="ms-3">
+                                <p class="mb-2">Projects</p>
+                                <h6 class="mb-0">{{\App\Models\Project::count()}}</h6>
+                            </div>
+                            <a href="{{route('Project.index')}}" class="small-box-footer ">
+                        More info <i class="fas fa-arrow-circle-right"></i>
+                        </a>
+                        </div>
+                    </div>
 
-<div class="col-sm-6 col-xl-3" style="cursor: pointer;">
-    <div class="bg-info rounded d-flex align-items-center justify-content-between p-4">
-        <i class="fa fa-chart-line fa-3x text-light"></i> <!-- Couleur de l'icône -->
-        <div class="ms-3">
-            <p class="mb-2 text-light">Departement</p> <!-- Couleur du texte -->
-            <h6 class="mb-0 text-light">{{ \App\Models\Departement::count() }}</h6> <!-- Couleur du texte -->
-        </div>
-    </div>
-    <a href="{{ route('Departement.index') }}" class="small-box-footer text-primary"> <!-- Couleur du texte -->
-        More info <i class="fas fa-arrow-circle-right"></i>
-    </a>
-</div>
+                    <div class="col-sm-6 col-xl-3" style=" cursor: pointer;">
+                        <div class="bg-info rounded d-flex align-items-center justify-content-between p-4">
+                            <i class="fas fa-list fa-3x text-dark"></i>
+                            <div class="ms-3">
+                                <p class="mb-2">Departement</p>
+                                <h6 class="mb-0">{{\App\Models\Departement::count()}}</h6>
+                            </div>
+                            <a href="{{route('Departement.index')}}" class="small-box-footer ">
+                        More info <i class="fas fa-arrow-circle-right"></i>
+                        </a>
+                        </div>
+                       
 
-                    <div class="col-sm-6 col-xl-3"style=" cursor: pointer;">
-                        <div class="bg-secondary rounded d-flex align-items-center justify-content-between p-4">
-                            <i class="fa fa-chart-bar fa-3x text-primary"></i>
-                            <div class="ms-3">
-                                <p class="mb-2">Total Sale</p>
-                                <h6 class="mb-0">$1234</h6>
-                            </div>
-                        </div>
                     </div>
                     <div class="col-sm-6 col-xl-3"style=" cursor: pointer;">
-                        <div class="bg-secondary rounded d-flex align-items-center justify-content-between p-4">
-                            <i class="fa fa-chart-area fa-3x text-primary"></i>
+                        <div class="bg-info rounded d-flex align-items-center justify-content-between p-4">
+                            <i class="fas fa-user-tie fa-3x text-dark"></i>
                             <div class="ms-3">
-                                <p class="mb-2">Today Revenue</p>
-                                <h6 class="mb-0">$1234</h6>
+                                <p class="mb-2">Employes</p>
+                                <h6 class="mb-0">{{\App\Models\Employe::count()}}</h6>
                             </div>
+                            <a href="{{route('Employe.index')}}" class="small-box-footer ">
+                        More info <i class="fas fa-arrow-circle-right"></i>
+                        </a>
                         </div>
                     </div>
-                    <div class="col-sm-6 col-xl-3"style=" cursor: pointer;">
-                        <div class="bg-secondary rounded d-flex align-items-center justify-content-between p-4">
-                            <i class="fa fa-chart-pie fa-3x text-primary"></i>
+                    
+                    <div class="col-sm-6 col-xl-3 "style=" cursor: pointer;">
+                        <div class="bg-info rounded d-flex align-items-center justify-content-between p-4 icon">
+                            <i class="fas fa-user-graduate fa-3x text-dark"></i>
                             <div class="ms-3">
-                                <p class="mb-2">Total Revenue</p>
-                                <h6 class="mb-0">$1234</h6>
+                                <p class="mb-2">Stagaires</p>
+                                <h6 class="mb-0">{{\App\Models\Stagaire::count()}}</h6>
                             </div>
+                            <a href="{{route('Stagaire.index')}}" class="small-box-footer ">
+                        More info <i class="fas fa-arrow-circle-right"></i>
+                        </a>
                         </div>
                     </div>
+                    
+                    
                 </div>
 
         <!--  Row 1 -->
@@ -61,356 +79,383 @@
           <div class="col-lg-8 d-flex align-items-strech">
             <div class="card w-100">
               <div class="card-body">
-                <div class="d-sm-flex d-block align-items-center justify-content-between mb-9">
-                  <div class="mb-3 mb-sm-0">
-                    <h5 class="card-title fw-semibold">Sales Overview</h5>
-                  </div>
-                  <div>
-                    <select class="form-select">
-                      <option value="1">March 2023</option>
-                      <option value="2">April 2023</option>
-                      <option value="3">May 2023</option>
-                      <option value="4">June 2023</option>
-                    </select>
-                  </div>
-                </div>
-                <div id="chart"></div>
+              <h5 class="card-title mb-3 fw-semibold">Distribution of Employes and Stagaires by Departement</h5>
+              <canvas id="employeeChart"></canvas>
               </div>
             </div>
           </div>
           <div class="col-lg-4">
             <div class="row">
-              <div class="col-lg-12">
-                <!-- Yearly Breakup -->
-                <div class="card overflow-hidden">
-                  <div class="card-body p-4">
-                    <h5 class="card-title mb-9 fw-semibold">Yearly Breakup</h5>
-                    <div class="row align-items-center">
-                      <div class="col-8">
-                        <h4 class="fw-semibold mb-3">$36,358</h4>
-                        <div class="d-flex align-items-center mb-3">
-                          <span
-                            class="me-1 rounded-circle bg-light-success round-20 d-flex align-items-center justify-content-center">
-                            <i class="ti ti-arrow-up-left text-success"></i>
-                          </span>
-                          <p class="text-dark me-1 fs-3 mb-0">+9%</p>
-                          <p class="fs-3 mb-0">last year</p>
-                        </div>
-                        <div class="d-flex align-items-center">
-                          <div class="me-4">
-                            <span class="round-8 bg-primary rounded-circle me-2 d-inline-block"></span>
-                            <span class="fs-2">2023</span>
-                          </div>
-                          <div>
-                            <span class="round-8 bg-light-primary rounded-circle me-2 d-inline-block"></span>
-                            <span class="fs-2">2023</span>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="col-4">
-                        <div class="d-flex justify-content-center">
-                          <div id="breakup"></div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="col-lg-12">
-                <!-- Monthly Earnings -->
-                <div class="card">
-                  <div class="card-body">
-                    <div class="row alig n-items-start">
-                      <div class="col-8">
-                        <h5 class="card-title mb-9 fw-semibold"> Monthly Earnings </h5>
-                        <h4 class="fw-semibold mb-3">$6,820</h4>
-                        <div class="d-flex align-items-center pb-1">
-                          <span
-                            class="me-2 rounded-circle bg-light-danger round-20 d-flex align-items-center justify-content-center">
-                            <i class="ti ti-arrow-down-right text-danger"></i>
-                          </span>
-                          <p class="text-dark me-1 fs-3 mb-0">+9%</p>
-                          <p class="fs-3 mb-0">last year</p>
-                        </div>
-                      </div>
-                      <div class="col-4">
-                        <div class="d-flex justify-content-end">
-                          <div
-                            class="text-white bg-secondary rounded-circle p-6 d-flex align-items-center justify-content-center">
-                            <i class="ti ti-currency-dollar fs-6"></i>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div id="earning"></div>
-                </div>
-              </div>
+            <div class="col-lg-12">
+    <div class="card">
+        <!-- Yearly Breakup -->
+        <div class="card-body">
+            <h5 class="card-title mb-3 fw-semibold">Distribution of Internship Requests by Status</h5>
+            <div class="col-10">
+                <canvas id="myChartt"></canvas>
+            </div>
+        </div>
+    </div>
+</div>
+
+             
             </div>
           </div>
         </div>
-        <div class="row">
-          <div class="col-lg-4 d-flex align-items-stretch">
-            <div class="card w-100">
-              <div class="card-body p-4">
-                <div class="mb-4">
-                  <h5 class="card-title fw-semibold">Recent Transactions</h5>
+
+    
+        
+       
+      
+      
+       <div class="row">
+
+<div  style="height: 400px;" class="col-xl-12 mb-30">
+    <div class="card card-statistics h-100">
+        <div class="card-body">
+            <div class="tab nav-border" style="position: relative;">
+                <div class="d-block d-md-flex justify-content-between">
+                    <div class="d-block w-100">
+                        <h5 style="font-family: 'Cairo', sans-serif" class="card-title">les dernier opperation sur system</h5>
+                    </div>
+                    <div class="d-block d-md-flex nav-tabs-custom">
+                        <ul class="nav nav-tabs" id="myTab" role="tablist">
+
+                        <li class="nav-item">
+                                <a class="nav-link active show" id="students-tab" data-toggle="tab"
+                                   href="#students" role="tab" aria-controls="students"
+                                   aria-selected="true"> Stagaires</a>
+                            </li>
+
+                            <li class="nav-item">
+                                <a class="nav-link" id="teachers-tab" data-toggle="tab" href="#teachers"
+                                   role="tab" aria-controls="teachers" aria-selected="false">Employes
+                                </a>
+                            </li>
+
+                            <li class="nav-item">
+                                <a class="nav-link" id="parents-tab" data-toggle="tab" href="#parents"
+                                   role="tab" aria-controls="parents" aria-selected="false"> Demmandes de Stages
+                                </a>
+                            </li>
+
+                            <li class="nav-item">
+                                <a class="nav-link" id="fee_invoices-tab" data-toggle="tab" href="#fee_invoices"
+                                   role="tab" aria-controls="fee_invoices" aria-selected="false">Annonces
+                                </a>
+                            </li>
+
+                        </ul>
+                    </div>
                 </div>
-                <ul class="timeline-widget mb-0 position-relative mb-n5">
-                  <li class="timeline-item d-flex position-relative overflow-hidden">
-                    <div class="timeline-time text-dark flex-shrink-0 text-end">09:30</div>
-                    <div class="timeline-badge-wrap d-flex flex-column align-items-center">
-                      <span class="timeline-badge border-2 border border-primary flex-shrink-0 my-8"></span>
-                      <span class="timeline-badge-border d-block flex-shrink-0"></span>
+                <div class="tab-content" id="myTabContent">
+
+                    {{--Stagaire Table--}}
+                    <div class="tab-pane fade active show" id="students" role="tabpanel" aria-labelledby="students-tab">
+                        <div class="table-responsive mt-15">
+                            <table style="text-align: center" class="table center-aligned-table table-hover mb-0">
+                                <thead>
+                                <tr  class="table-info text-danger">
+                                    <th>#</th>
+                                    <th>Stagaire_Name </th>
+                                    <th>Stagaire_Email </th>
+                                    <th>Stagaire_Telephone </th>
+                                    <th>Stagaire_Address </th>
+                                    <th>Gender</th>
+                                    <th> Departement</th>
+                                    <th> Date_debut</th>
+                                    <th>Date_fin</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                @forelse(\App\Models\Stagaire::latest()->take(5)->get() as $stagaire)
+                                    <tr>
+                                        <td>{{$loop->iteration}}</td>
+                                        <td>{{$stagaire->FullName}}</td>
+                                        <td>{{$stagaire->email}}</td>
+                                        <td>{{$stagaire->telephone}}</td>
+                                        <td>{{$stagaire->Address}}</td>
+                                        <td>{{$stagaire->genders->Name}}</td>
+                                        <td>{{$stagaire->Departements->nom}}</td>
+                                        <td>{{$stagaire->Date_debut}}</td>
+                                        <td class="text-success">{{$stagaire->Date_fin}}</td>
+                                        @empty
+                                            <td class="alert-danger" colspan="8">Auccune Donnés </td>
+                                    </tr>
+                                @endforelse
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
-                    <div class="timeline-desc fs-3 text-dark mt-n1">Payment received from John Doe of $385.90</div>
-                  </li>
-                  <li class="timeline-item d-flex position-relative overflow-hidden">
-                    <div class="timeline-time text-dark flex-shrink-0 text-end">10:00 am</div>
-                    <div class="timeline-badge-wrap d-flex flex-column align-items-center">
-                      <span class="timeline-badge border-2 border border-info flex-shrink-0 my-8"></span>
-                      <span class="timeline-badge-border d-block flex-shrink-0"></span>
+
+                    {{--employes Table--}}
+                    <div class="tab-pane fade" id="teachers" role="tabpanel" aria-labelledby="teachers-tab">
+                        <div class="table-responsive mt-15">
+                            <table style="text-align: center" class="table center-aligned-table table-hover mb-0">
+                                <thead>
+                                <tr  class="table-info text-danger">
+                                <th>#</th>
+                                    <th>employe_Name </th>
+                                    <th>employe_Email </th>
+                                    <th>employe_Telephone </th>
+                                    <th>employe_Address </th>
+                                    <th>Gender</th>
+                                    <th> Departement</th>
+                                    <th> Joining_Date</th>
+                                </tr>
+                                </thead>
+
+                                @forelse(\App\Models\Employe::latest()->take(5)->get() as $employe)
+                                    <tbody>
+                                    <tr>
+                                    <td>{{$loop->iteration}}</td>
+                                        <td>{{$employe->FullName}}</td>
+                                        <td>{{$employe->email}}</td>
+                                        <td>{{$employe->telephone}}</td>
+                                        <td>{{$employe->Address}}</td>
+                                        <td>{{$employe->genders->Name}}</td>
+                                        <td>{{$employe->Departements->nom}}</td>
+                                        <td class="text-success">{{$employe->Joining_Date}}</td>
+                                        @empty
+                                            <td class="alert-danger" colspan="8">لاتوجد بيانات</td>
+                                    </tr>
+                                    </tbody>
+                                @endforelse
+                            </table>
+                        </div>
                     </div>
-                    <div class="timeline-desc fs-3 text-dark mt-n1 fw-semibold">New sale recorded <a
-                        href="javascript:void(0)" class="text-primary d-block fw-normal">#ML-3467</a>
+                    {{--parents Table--}}
+                    <div class="tab-pane fade" id="parents" role="tabpanel" aria-labelledby="parents-tab">
+                        <div class="table-responsive mt-15">
+                            <table style="text-align: center" class="table center-aligned-table table-hover mb-0">
+                                <thead>
+                                <tr  class="table-info text-danger">
+                                <th>#</th>
+                                    <th>Name </th>
+                                    <th>Email </th>
+                                    <th>Telephone </th>
+                                    <th>Address </th>
+                                    <th>Gender</th>
+                                    <th> Departement</th>
+                                    <th> Date_debut</th>
+                                    <th>Date_fin</th>
+                                    <th>cv</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                @forelse(\App\Models\Demmande::latest()->take(5)->get() as $stagaire)
+                                    <tr>
+                                    <td>{{$loop->iteration}}</td>
+                                        <td>{{$stagaire->FullName}}</td>
+                                        <td>{{$stagaire->email}}</td>
+                                        <td>{{$stagaire->telephone}}</td>
+                                        <td>{{$stagaire->Address}}</td>
+                                        <td>{{$stagaire->genders->Name}}</td>
+                                        <td>{{$stagaire->Departements->nom}}</td>
+                                        <td>{{$stagaire->Date_debut}}</td>
+                                        <td class="text-success">{{$stagaire->Date_fin}}</td>
+                                        <td><a href="{{asset('storage/imgs/'.$stagaire->cv) }}">Télécharger le fichier</a> </td>                                   </td>
+                                        @empty
+                                            <td class="alert-danger" colspan="8">لاتوجد بيانات</td>
+                                    </tr>
+                                @endforelse
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
-                  </li>
-                  <li class="timeline-item d-flex position-relative overflow-hidden">
-                    <div class="timeline-time text-dark flex-shrink-0 text-end">12:00 am</div>
-                    <div class="timeline-badge-wrap d-flex flex-column align-items-center">
-                      <span class="timeline-badge border-2 border border-success flex-shrink-0 my-8"></span>
-                      <span class="timeline-badge-border d-block flex-shrink-0"></span>
+
+                    {{--annonces Table--}}
+                    <div class="tab-pane fade" id="fee_invoices" role="tabpanel" aria-labelledby="fee_invoices-tab">
+                        <div class="table-responsive mt-15">
+                            <table style="text-align: center" class="table center-aligned-table table-hover mb-0">
+                                <thead>
+                                <tr  class="table-info text-danger">
+                                    <th>#</th>
+                                    <th>Title </th>
+                                    <th>download </th>
+                                    <th>Date_creation </th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                @forelse(\App\Models\Annonce::latest()->take(10)->get() as $annonce)
+                                    <tr>
+                                        <td>{{$loop->iteration}}</td>
+                                        <td>{{$annonce->Title}}</td>
+                                        <td> <a class="btn btn-outline-success danger btn-sm"
+class="btn btn-outline-success btn-sm" href="{{route('annonce.pdf',$annonce->id)}}">Download<i class="	fa fa-download" style="color:green"></i></a></td>
+                                        <td class="text-success">{{$annonce->created_at}}</td>
+                                    </tr>
+                                @empty
+                                    <tr>
+                                        <td class="alert-danger" colspan="9">لاتوجد بيانات</td>
+                                    </tr>
+                                @endforelse
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
-                    <div class="timeline-desc fs-3 text-dark mt-n1">Payment was made of $64.95 to Michael</div>
-                  </li>
-                  <li class="timeline-item d-flex position-relative overflow-hidden">
-                    <div class="timeline-time text-dark flex-shrink-0 text-end">09:30 am</div>
-                    <div class="timeline-badge-wrap d-flex flex-column align-items-center">
-                      <span class="timeline-badge border-2 border border-warning flex-shrink-0 my-8"></span>
-                      <span class="timeline-badge-border d-block flex-shrink-0"></span>
-                    </div>
-                    <div class="timeline-desc fs-3 text-dark mt-n1 fw-semibold">New sale recorded <a
-                        href="javascript:void(0)" class="text-primary d-block fw-normal">#ML-3467</a>
-                    </div>
-                  </li>
-                  <li class="timeline-item d-flex position-relative overflow-hidden">
-                    <div class="timeline-time text-dark flex-shrink-0 text-end">09:30 am</div>
-                    <div class="timeline-badge-wrap d-flex flex-column align-items-center">
-                      <span class="timeline-badge border-2 border border-danger flex-shrink-0 my-8"></span>
-                      <span class="timeline-badge-border d-block flex-shrink-0"></span>
-                    </div>
-                    <div class="timeline-desc fs-3 text-dark mt-n1 fw-semibold">New arrival recorded
-                    </div>
-                  </li>
-                  <li class="timeline-item d-flex position-relative overflow-hidden">
-                    <div class="timeline-time text-dark flex-shrink-0 text-end">12:00 am</div>
-                    <div class="timeline-badge-wrap d-flex flex-column align-items-center">
-                      <span class="timeline-badge border-2 border border-success flex-shrink-0 my-8"></span>
-                    </div>
-                    <div class="timeline-desc fs-3 text-dark mt-n1">Payment Done</div>
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </div>
-          <div class="col-lg-8 d-flex align-items-stretch">
-            <div class="card w-100">
-              <div class="card-body p-4">
-                <h5 class="card-title fw-semibold mb-4">Recent Transactions</h5>
-                <div class="table-responsive">
-                  <table class="table text-nowrap mb-0 align-middle">
-                    <thead class="text-dark fs-4">
-                      <tr>
-                        <th class="border-bottom-0">
-                          <h6 class="fw-semibold mb-0">Id</h6>
-                        </th>
-                        <th class="border-bottom-0">
-                          <h6 class="fw-semibold mb-0">Assigned</h6>
-                        </th>
-                        <th class="border-bottom-0">
-                          <h6 class="fw-semibold mb-0">Name</h6>
-                        </th>
-                        <th class="border-bottom-0">
-                          <h6 class="fw-semibold mb-0">Priority</h6>
-                        </th>
-                        <th class="border-bottom-0">
-                          <h6 class="fw-semibold mb-0">Budget</h6>
-                        </th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr>
-                        <td class="border-bottom-0"><h6 class="fw-semibold mb-0">1</h6></td>
-                        <td class="border-bottom-0">
-                            <h6 class="fw-semibold mb-1">Sunil Joshi</h6>
-                            <span class="fw-normal">Web Designer</span>
-                        </td>
-                        <td class="border-bottom-0">
-                          <p class="mb-0 fw-normal">Elite Admin</p>
-                        </td>
-                        <td class="border-bottom-0">
-                          <div class="d-flex align-items-center gap-2">
-                            <span class="badge bg-primary rounded-3 fw-semibold">Low</span>
-                          </div>
-                        </td>
-                        <td class="border-bottom-0">
-                          <h6 class="fw-semibold mb-0 fs-4">$3.9</h6>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td class="border-bottom-0"><h6 class="fw-semibold mb-0">2</h6></td>
-                        <td class="border-bottom-0">
-                            <h6 class="fw-semibold mb-1">Andrew McDownland</h6>
-                            <span class="fw-normal">Project Manager</span>
-                        </td>
-                        <td class="border-bottom-0">
-                          <p class="mb-0 fw-normal">Real Homes WP Theme</p>
-                        </td>
-                        <td class="border-bottom-0">
-                          <div class="d-flex align-items-center gap-2">
-                            <span class="badge bg-secondary rounded-3 fw-semibold">Medium</span>
-                          </div>
-                        </td>
-                        <td class="border-bottom-0">
-                          <h6 class="fw-semibold mb-0 fs-4">$24.5k</h6>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td class="border-bottom-0"><h6 class="fw-semibold mb-0">3</h6></td>
-                        <td class="border-bottom-0">
-                            <h6 class="fw-semibold mb-1">Christopher Jamil</h6>
-                            <span class="fw-normal">Project Manager</span>
-                        </td>
-                        <td class="border-bottom-0">
-                          <p class="mb-0 fw-normal">MedicalPro WP Theme</p>
-                        </td>
-                        <td class="border-bottom-0">
-                          <div class="d-flex align-items-center gap-2">
-                            <span class="badge bg-danger rounded-3 fw-semibold">High</span>
-                          </div>
-                        </td>
-                        <td class="border-bottom-0">
-                          <h6 class="fw-semibold mb-0 fs-4">$12.8k</h6>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td class="border-bottom-0"><h6 class="fw-semibold mb-0">4</h6></td>
-                        <td class="border-bottom-0">
-                            <h6 class="fw-semibold mb-1">Nirav Joshi</h6>
-                            <span class="fw-normal">Frontend Engineer</span>
-                        </td>
-                        <td class="border-bottom-0">
-                          <p class="mb-0 fw-normal">Hosting Press HTML</p>
-                        </td>
-                        <td class="border-bottom-0">
-                          <div class="d-flex align-items-center gap-2">
-                            <span class="badge bg-success rounded-3 fw-semibold">Critical</span>
-                          </div>
-                        </td>
-                        <td class="border-bottom-0">
-                          <h6 class="fw-semibold mb-0 fs-4">$2.4k</h6>
-                        </td>
-                      </tr>
-                    </tbody>
-                  </table>
+                    
+
                 </div>
-              </div>
+
             </div>
-          </div>
         </div>
-        <div class="row">
-          <div class="col-sm-6 col-xl-3">
-            <div class="card overflow-hidden rounded-2">
-              <div class="position-relative">
-                <a href="javascript:void(0)"><img src="../assets/images/products/s4.jpg" class="card-img-top rounded-0" alt="..."></a>
-                <a href="javascript:void(0)" class="bg-primary rounded-circle p-2 text-white d-inline-flex position-absolute bottom-0 end-0 mb-n3 me-3" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Add To Cart"><i class="ti ti-basket fs-4"></i></a>                      </div>
-              <div class="card-body pt-3 p-4">
-                <h6 class="fw-semibold fs-4">Boat Headphone</h6>
-                <div class="d-flex align-items-center justify-content-between">
-                  <h6 class="fw-semibold fs-4 mb-0">$50 <span class="ms-2 fw-normal text-muted fs-3"><del>$65</del></span></h6>
-                  <ul class="list-unstyled d-flex align-items-center mb-0">
-                    <li><a class="me-1" href="javascript:void(0)"><i class="ti ti-star text-warning"></i></a></li>
-                    <li><a class="me-1" href="javascript:void(0)"><i class="ti ti-star text-warning"></i></a></li>
-                    <li><a class="me-1" href="javascript:void(0)"><i class="ti ti-star text-warning"></i></a></li>
-                    <li><a class="me-1" href="javascript:void(0)"><i class="ti ti-star text-warning"></i></a></li>
-                    <li><a class="" href="javascript:void(0)"><i class="ti ti-star text-warning"></i></a></li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-sm-6 col-xl-3">
-            <div class="card overflow-hidden rounded-2">
-              <div class="position-relative">
-                <a href="javascript:void(0)"><img src="../assets/images/products/s5.jpg" class="card-img-top rounded-0" alt="..."></a>
-                <a href="javascript:void(0)" class="bg-primary rounded-circle p-2 text-white d-inline-flex position-absolute bottom-0 end-0 mb-n3 me-3" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Add To Cart"><i class="ti ti-basket fs-4"></i></a>                      </div>
-              <div class="card-body pt-3 p-4">
-                <h6 class="fw-semibold fs-4">MacBook Air Pro</h6>
-                <div class="d-flex align-items-center justify-content-between">
-                  <h6 class="fw-semibold fs-4 mb-0">$650 <span class="ms-2 fw-normal text-muted fs-3"><del>$900</del></span></h6>
-                  <ul class="list-unstyled d-flex align-items-center mb-0">
-                    <li><a class="me-1" href="javascript:void(0)"><i class="ti ti-star text-warning"></i></a></li>
-                    <li><a class="me-1" href="javascript:void(0)"><i class="ti ti-star text-warning"></i></a></li>
-                    <li><a class="me-1" href="javascript:void(0)"><i class="ti ti-star text-warning"></i></a></li>
-                    <li><a class="me-1" href="javascript:void(0)"><i class="ti ti-star text-warning"></i></a></li>
-                    <li><a class="" href="javascript:void(0)"><i class="ti ti-star text-warning"></i></a></li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-sm-6 col-xl-3">
-            <div class="card overflow-hidden rounded-2">
-              <div class="position-relative">
-                <a href="javascript:void(0)"><img src="../assets/images/products/s7.jpg" class="card-img-top rounded-0" alt="..."></a>
-                <a href="javascript:void(0)" class="bg-primary rounded-circle p-2 text-white d-inline-flex position-absolute bottom-0 end-0 mb-n3 me-3" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Add To Cart"><i class="ti ti-basket fs-4"></i></a>                      </div>
-              <div class="card-body pt-3 p-4">
-                <h6 class="fw-semibold fs-4">Red Valvet Dress</h6>
-                <div class="d-flex align-items-center justify-content-between">
-                  <h6 class="fw-semibold fs-4 mb-0">$150 <span class="ms-2 fw-normal text-muted fs-3"><del>$200</del></span></h6>
-                  <ul class="list-unstyled d-flex align-items-center mb-0">
-                    <li><a class="me-1" href="javascript:void(0)"><i class="ti ti-star text-warning"></i></a></li>
-                    <li><a class="me-1" href="javascript:void(0)"><i class="ti ti-star text-warning"></i></a></li>
-                    <li><a class="me-1" href="javascript:void(0)"><i class="ti ti-star text-warning"></i></a></li>
-                    <li><a class="me-1" href="javascript:void(0)"><i class="ti ti-star text-warning"></i></a></li>
-                    <li><a class="" href="javascript:void(0)"><i class="ti ti-star text-warning"></i></a></li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-sm-6 col-xl-3">
-            <div class="card overflow-hidden rounded-2">
-              <div class="position-relative">
-                <a href="javascript:void(0)"><img src="../assets/images/products/s11.jpg" class="card-img-top rounded-0" alt="..."></a>
-                <a href="javascript:void(0)" class="bg-primary rounded-circle p-2 text-white d-inline-flex position-absolute bottom-0 end-0 mb-n3 me-3" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Add To Cart"><i class="ti ti-basket fs-4"></i></a>                      </div>
-              <div class="card-body pt-3 p-4">
-                <h6 class="fw-semibold fs-4">Cute Soft Teddybear</h6>
-                <div class="d-flex align-items-center justify-content-between">
-                  <h6 class="fw-semibold fs-4 mb-0">$285 <span class="ms-2 fw-normal text-muted fs-3"><del>$345</del></span></h6>
-                  <ul class="list-unstyled d-flex align-items-center mb-0">
-                    <li><a class="me-1" href="javascript:void(0)"><i class="ti ti-star text-warning"></i></a></li>
-                    <li><a class="me-1" href="javascript:void(0)"><i class="ti ti-star text-warning"></i></a></li>
-                    <li><a class="me-1" href="javascript:void(0)"><i class="ti ti-star text-warning"></i></a></li>
-                    <li><a class="me-1" href="javascript:void(0)"><i class="ti ti-star text-warning"></i></a></li>
-                    <li><a class="" href="javascript:void(0)"><i class="ti ti-star text-warning"></i></a></li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="py-6 px-6 text-center">
-          <p class="mb-0 fs-4">Design and Developed by <a href="https://adminmart.com/" target="_blank" class="pe-1 text-primary text-decoration-underline">AdminMart.com</a> Distributed by <a href="https://themewagon.com">ThemeWagon</a></p>
-        </div>
+    </div>
+</div>
+</div>
+
       </div>
+      
+
+      <div>
+      
+      </div>
+   
 
 
 
         </div>
+       
+
+  
     @endsection
 
     @section('js')
-
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="{{ URL::asset('assets/libs/apexcharts/dist/apexcharts.min.js') }}"></script>
+    <script>
+      // Récupération des données depuis le backend Laravel
+    const departements = @json($Departements);
+    const Departements_emp=@json($Departements_emp);
+  
+
+    // Initialisation des tableaux de données pour les employés et les stagiaires
+    const employesData = [];
+    const stagiairesData = [];
+
+    
+    // Parcours de chaque département pour récupérer le nombre d'employés et de stagiaires
+    departements.forEach(departement => {
+     
+    stagiairesData.push(departement.stagaires.length);
+   
+});
+Departements_emp.forEach(departement => {
+     
+     employesData.push(departement.employes.length);
+       
+    });
+   
+   
+   
+       console.log(stagiairesData);
+       // Définition des données pour le graphique
+       const data = {
+           labels: departements.map(departement => departement.nom),
+           datasets: [{
+               label: 'Employés',
+               data: employesData,
+               backgroundColor: 'rgba(54, 162, 235, 0.5)',
+               borderColor: 'rgba(54, 162, 235, 1)',
+               borderWidth: 1
+           }, {
+               label: 'Stagiaires',
+               data: stagiairesData,
+               backgroundColor: 'rgba(255, 99, 132, 0.5)',
+               borderColor: 'rgba(255, 99, 132, 1)',
+               borderWidth: 1
+           }]
+       };
+   
+     
+   // Configuration du graphique
+const config = {
+    type: 'bar',
+    data: data,
+    options: {
+        maintainAspectRatio: true,
+        responsive: true,
+        scales: {
+            y: {
+                beginAtZero: true
+            }
+        },
+        plugins: {
+            legend: {
+                display: true,
+                position: 'top',
+            }
+        },
+        layout: {
+            padding: {
+                left: 50,
+                right: 50,
+                top: 50,
+                bottom: 50
+            }
+        },
+        scales: {
+            x: {
+                grid: {
+                    display: false
+                }
+            },
+            y: {
+                beginAtZero: true
+            }
+        }
+    }
+};
+
+// Création du graphique
+var myChart = new Chart(
+    document.getElementById('employeeChart'),
+    config
+);
+
+
+
+     
+
+
+  
+          
+
+
+
+
+   
+</script>
+<script>
+    var ctx = document.getElementById('myChartt').getContext('2d');
+    var myChart = new Chart(ctx, {
+    type: 'pie',
+    data: {
+        labels: ['Confirmed', 'Cancelled', 'Current'],
+        datasets: [{
+            label: 'Demandes de stage',
+            data: [{{ $demmandes_confirmed->count() }}, {{ $demmandes_annuler->count() }}, {{ $demmandes->count() }}],
+            backgroundColor: [
+                'rgba(54, 162, 235, 1)', // Bleu original
+                'rgba(54, 162, 235, 0.7)', // Bleu avec une opacité réduite
+                'rgba(54, 162, 235, 0.4)'
+            ],
+            borderColor: [
+                'rgba(54, 162, 235, 1)', // Bleu original
+                'rgba(54, 162, 235, 0.7)', // Bleu avec une opacité réduite
+                'rgba(54, 162, 235, 0.4)'  // Bleu avec une opacité encore plus réduite
+            ],
+            borderWidth: 1
+        }]
+    },
+    options: {
+        responsive: true,
+        maintainAspectRatio: false
+    }
+});
+
+
+</script>
+    
+   
     @endsection

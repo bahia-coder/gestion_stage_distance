@@ -32,21 +32,23 @@
                 <div class="row justify-content-center no-gutters vertical-align">
 
                     <div style="border-radius: 15px;" class="col-lg-8 col-md-8 bg-white">
+                        <center>
                         <div class="login-fancy pb-40 clearfix">
                             <h3 style="font-family: 'Cairo', sans-serif" class="mb-30">déterminer la facon de connexion</h3>
-                            <div class="form-inline">
-                                <a class="btn btn-default col-lg-3" title="stagaire" href="{{route('login.show','stagaire')}}">
+                            <div class="form-inline ">
+                                <a class="btn btn-default col-lg-4" title="stagaire" href="{{route('login.show','stagaire')}}">
                                     <img alt="user-img" width="100px;" src="{{URL::asset('assets/images/student.png')}}">
                                 </a>
-                                <a class="btn btn-default col-lg-3" title="Employe" href="{{route('login.show','employe')}}">
+                                <a class="btn btn-default col-lg-4" title="Employe" href="{{route('login.show','employe')}}">
                                     <img alt="user-img" width="100px;" src="{{URL::asset('assets/images/teacher.png')}}">
                                 </a>
-                                <a class="btn btn-default col-lg-3" title="admin" href="{{route('login.show','admin')}}">
+                                <a class="btn btn-default col-lg-4" title="admin" href="{{route('login.show','admin')}}">
                                     <img alt="user-img" width="100px;" src="{{URL::asset('assets/images/admin.png')}}">
                                 </a>
                             </div>
 
                         </div>
+                        </center>
                     </div>
                 </div>
             </div>

@@ -15,8 +15,16 @@ return new class extends Migration
     {
         Schema::create('employes', function (Blueprint $table) {
             $table->id();
+            $table->string('FullName')->unique();
             $table->string('email')->unique();
             $table->string('password');
+            $table->bigInteger('Departement_id')->unsigned();
+            $table->foreign('Departement_id')->references('id')->on('departements')->onDelete('cascade');
+            $table->bigInteger('Gender_id')->unsigned();
+            $table->foreign('Gender_id')->references('id')->on('genders')->onDelete('cascade');
+            $table->date('Joining_Date');
+            $table->text('Address');
+            $table->string('photo');
             $table->timestamps();
         });
     }
