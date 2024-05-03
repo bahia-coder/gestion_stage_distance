@@ -5,6 +5,10 @@ namespace App\Http\Controllers;
 use App\Models\Project;
 use App\Models\Stagaire;
 use App\Models\Employe;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
+use App\Models\Message;
+use App\Models\Conversation;
 use App\Models\Departement;
 use App\Traits\UploadImageTrait;
 use Illuminate\Support\Facades\Redirect;
@@ -18,7 +22,10 @@ class ProjectController extends Controller
     public function index()
     {
         $projects = Project::all();
-        $Stagaires = Stagaire::all();
+        $Stagaires = Stagaire::leftJoin('projects', 'stagaires.id', '=', 'projects.Stagaire_id')
+        ->whereNull('projects.Stagaire_id')
+        ->select('stagaires.*')
+        ->get();
         $Departements = Departement::all();
         $Employes = Employe::all();
         // Passez les données des départements à la vue "welcome" en utilisant compact
@@ -35,12 +42,30 @@ class ProjectController extends Controller
     public function store(Request $request)
 {
     try {
+        
         $projects = $request->projects;
 
         // Si des projets sont soumis
         if (!empty($projects)) {
             foreach ($projects as $projectData) {
                 $project = new Project();
+                DB::beginTransaction();
+        $employee = Employe::findOrFail($projectData['Employe_id'])->email;
+        $Stagaire = Stagaire::findOrFail($projectData['Stagaire_id'])->email;
+        // $createConversation
+        $createConversation = Conversation::create([
+            'sender_email' => $employee,
+            'receiver_email' => $Stagaire,
+            'last_time_message' => null,
+        ]);
+        // create message
+        Message::create([
+            'conversation_id' => $createConversation->id,
+            'sender_email' => $Stagaire,
+            'receiver_email' => $Stagaire,
+            'body' => '',
+        ]);
+        DB::commit();
 
                 // Assurez-vous que toutes les données nécessaires sont fournies avant de sauvegarder
                 if (isset($projectData['nom'])) {
@@ -55,6 +80,7 @@ class ProjectController extends Controller
 
             return redirect()->route('Project.index');
         } else {
+            
             // Si aucun projet n'est soumis, traitez le formulaire pour un seul projet
             $project = new Project();
             $project->nom = $request->input('Name');

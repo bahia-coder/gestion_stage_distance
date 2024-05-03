@@ -1,17 +1,6 @@
 @extends('layouts.master_employe')
-@section('css')
-    @toastr_css
-@section('title')
-    اضافة حصة جديدة
-@stop
-@endsection
-@section('page-header')
-<!-- breadcrumb -->
-@section('PageTitle')
-    اضافة حصة جديدة
-@stop
-<!-- breadcrumb -->
-@endsection
+
+
 @section('content')
 <div class="container-fluid">
     <!-- row -->
@@ -33,7 +22,7 @@
                 <form method="post" action="{{ route('online_classes.store') }}" autocomplete="off">
                     @csrf
                     <div class="row">
-                        <div class="col-md-4">
+                        <div class="col-md-6">
                             <div class="form-group">
                                 <label for="Grade_id">Stagaire : <span
                                         class="text-danger">*</span></label>
@@ -47,35 +36,35 @@
                         </div>
 
                         
-
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label> Meeting Topic : <span class="text-danger">*</span></label>
+                                <input class="form-control" name="topic" type="text">
+                            </div>
+                        </div>
                         
                     </div><br>
 
                     <div class="row">
 
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                <label>عنوان الحصة : <span class="text-danger">*</span></label>
-                                <input class="form-control" name="topic" type="text">
-                            </div>
-                        </div>
+                       
 
-                        <div class="col-md-4">
+                        <div class="col-md-6">
                             <div class="form-group">
-                                <label>تاريخ ووقت الحصة : <span class="text-danger">*</span></label>
+                                <label>  Start Meeting Date : <span class="text-danger">*</span></label>
                                 <input class="form-control" type="datetime-local" name="start_time">
                             </div>
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-md-6">
                             <div class="form-group">
-                                <label>مدة الحصة بالدقائق : <span class="text-danger">*</span></label>
+                                <label>  Duration of meeting : <span class="text-danger">*</span></label>
                                 <input class="form-control" name="duration" type="text">
                             </div>
                         </div>
 
                     </div>
                     <button class="btn btn-success btn-sm nextBtn btn-lg pull-right"
-                        type="submit">{{ trans('Students_trans.submit') }}</button>
+                        type="submit">create</button>
                 </form>
 
             </div>

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Tache;
 use App\Models\Project;
+use App\Models\Meeting;
 use Illuminate\Http\Request;
 use App\Traits\UploadImageTrait;
 use Illuminate\Support\Facades\Redirect;
@@ -20,6 +21,13 @@ class TacheController extends Controller
     public function index()
     {
         $user = auth('stagaire')->user();
+        $meetings = Meeting::where('Stagaire_id', $user->id)
+        ->whereRaw('start_at + INTERVAL duration SECOND > NOW()')
+        ->get();
+        $taches=$user->Taches;
+    $tachess=$user->Taches->where('assignment','!=',null);
+    $pourcentage= intval(($tachess->count() / $taches->count()) * 100);
+        //return $meetings;
 
         // Récupérer les tâches du stagiaire authentifié avec la relation "stagaire"
         $taches = Tache::where('Stagaire_id', $user->id)->with('stagaire')->get();
@@ -28,6 +36,7 @@ class TacheController extends Controller
         ->latest() // Trie par date de création décroissante
         ->first();
         $events = [];
+        $tachess=$taches->where('assignment',null);
 
         foreach ($taches as $tache) {
             if($tache->assignment==null){
@@ -40,10 +49,22 @@ class TacheController extends Controller
             }
         }
 
-        return view('pages.Stagaire.dashboard', compact('events','project'));
+        return view('pages.Stagaire.dashboard', compact('events','project','tachess','meetings','pourcentage'));
     }
 
+public function Notes(){
+    $user=auth('stagaire')->user();
+    $taches=$user->Taches;
+    $termine=intval(($taches->where('status','terminé')->count() / $user->Taches->count()) *100);
+   $en_cours=intval(($taches->where('status','en_cours')->where('end', '<', now()->toDateString())->count() / $user->Taches->count()) *100);
+   $en_attente=intval(($taches->where('status','en_cours')->where('end', '<', now()->toDateString())->where('assignment','!=',null)->count() / $user->Taches->count()) *100);
+   $overdue = intval(($taches->where('status', 'en_cours')
+   ->where('assignment', '!=', null)
+   ->where('end', '<', now()->toDateString())
+   ->count() / $user->Taches->count()) * 100);
+    return view('pages.Stagaire.Notes', compact('taches','en_cours','en_attente','overdue','termine'));
 
+}
     public function Tasks(){
         $user = auth('stagaire')->user();
 

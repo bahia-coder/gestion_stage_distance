@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Auth;
 
 use App\Models\Stagaire;
+use App\Models\Testimonial;
+use Illuminate\Support\Facades\Redirect;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
 use App\Traits\UploadImageTrait;
 use App\Models\Departement;
@@ -12,7 +15,6 @@ use Illuminate\Support\Facades\Hash;
 use App\Models\Gender;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\StagaireCreated;
-use Illuminate\Support\Facades\Redirect;
 
 class StagaireController extends Controller
 {
@@ -155,5 +157,19 @@ public function update(Request $request)
     return Redirect::route('Stagaire.index')->with([
         'success'=>'Stagaire deleted successfully'
     ]);;
+    }
+    public function certificat(){
+        $user= auth('stagaire')->user();
+        $testimonial = Testimonial::where('Stagaire_id', $user->id)
+        ->with('Stagaire')
+        ->latest() // Trie par date de création décroissante
+        ->first();
+        return view('pages.Stagaire.certificat',compact('user','testimonial'));
+       
+    }
+    public function download_certificat(){
+        $user= auth('stagaire')->user();
+        $pdf = Pdf::loadView('pages.Stagaire.downloadcertificat',compact('user'));
+        return $pdf->download();
     }
 }

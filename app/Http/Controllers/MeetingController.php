@@ -147,8 +147,20 @@ class MeetingController extends Controller
      */
     public function create()
     {
-        $Stagaires = Stagaire::all();
-        return view('pages.online_Meetings.add', compact('Stagaires'));
+        $Stagaires = Stagaire::join('projects', 'stagaires.id', '=', 'projects.Stagaire_id')
+        ->join('employes', 'projects.Employe_id', '=', 'employes.id')
+        ->where('employes.id', auth()->user()->id)->select('stagaires.*')->distinct()
+        ->get();
+    
+    return view('pages.online_Meetings.add', compact('Stagaires'));
+    }
+    public function Meetings(){
+        $user=auth('stagaire')->user()->id;
+        $meetings=Meeting::where('Stagaire_id',$user)
+        ->whereRaw('DATE_ADD(start_at, INTERVAL duration SECOND) > NOW()')
+        ->get();
+        return view('pages.Stagaire.Meetings', compact('meetings'));
+     
     }
 
     /**

@@ -16,6 +16,7 @@
             <div class="content-inner">
 
                 @foreach($messages as $message)
+                @if($message->body!='')
                 <div class="media {{$auth_email == $message->sender_email ?'flex-row-reverse':''}}">
                     <div class="media-body">
                         <div class="main-msg-wrapper right">
@@ -27,6 +28,7 @@
                         </div>
                     </div>
                 </div>
+                @endif
                 @endforeach
             </div>
         </div>

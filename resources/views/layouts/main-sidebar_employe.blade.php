@@ -20,7 +20,7 @@
               <span class="hide-menu">Home</span>
             </li>
             <li class="sidebar-item">
-              <a class="sidebar-link" href="/stagaire/dashboard" aria-expanded="false">
+              <a class="sidebar-link" href="/employe/dashboard" aria-expanded="false">
                 <span>
                   <i class="fa fa-home fa-1.5x"></i>
                 </span>
@@ -33,6 +33,32 @@
             </li>
            
            
+            
+           
+            <li class="sidebar-item">
+              <a class="sidebar-link" href="{{route('chat.stagaire')}}" aria-expanded="false">
+                <span>
+                  <i class="	fab fa-facebook-messenger fa-1.5x"></i>
+                </span>
+                <span class="hide-menu">chat</span>
+              </a>
+            </li>
+            <li class="sidebar-item">
+              <a class="sidebar-link" href="{{route('online_classes.index')}}" aria-expanded="false">
+                <span>
+                  <i class="fa fa-video-camera fa-1.5x"></i>
+                </span>
+                <span class="hide-menu">Online Meeting</span>
+              </a>
+            </li>
+            <li class="sidebar-item">
+              <a class="sidebar-link" href="{{route('employe_profile')}}" aria-expanded="false">
+                <span>
+                  <i class="fas fa-address-card fa-1.5x"></i>
+                </span>
+                <span class="hide-menu">Profile</span>
+              </a>
+            </li>
             <li class="sidebar-item">
             @if(auth('stagaire')->check())
             <a class="sidebar-link"  href="{{ route('logout','stagaire') }}" aria-expanded="false">
@@ -67,69 +93,8 @@
                                       @endif
            
             </li>
-            <li class="sidebar-item">
-              <a class="sidebar-link" href="/Tasks" aria-expanded="false">
-                <span>
-                  <i class="fa fa-cogs"></i>
-                </span>
-                <span class="hide-menu">Tasks</span>
-              </a>
-            </li>
-            <li class="sidebar-item">
-              <a class="sidebar-link" href="{{route('chat.stagaire')}}" aria-expanded="false">
-                <span>
-                  <i class="fa fa-home fa-1.5x"></i>
-                </span>
-                <span class="hide-menu">chat</span>
-              </a>
-            </li>
-            <li class="sidebar-item">
-              <a class="sidebar-link" href="{{route('online_classes.index')}}" aria-expanded="false">
-                <span>
-                  <i class="fa fa-home fa-1.5x"></i>
-                </span>
-                <span class="hide-menu">Online Meeting</span>
-              </a>
-            </li>
-            <li class="sidebar-item">
-              <a class="sidebar-link" href="{{route('list.stagaire')}}" aria-expanded="false">
-                <span>
-                  <i class="fa fa-home fa-1.5x"></i>
-                </span>
-                <span class="hide-menu">chat</span>
-              </a>
-            </li>
-            <li class="sidebar-item">
-              <a class="sidebar-link" href="/Testimonial" aria-expanded="false">
-                <span>
-                  <i class="fa fa-cogs"></i>
-                </span>
-                <span class="hide-menu">Testimonial</span>
-              </a>
-            </li>
-            <li class="nav-small-cap">
-              <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
-              <span class="hide-menu">EXTRA</span>
-            </li>
-            <li class="sidebar-item">
-  <a class="sidebar-link" href="#" aria-expanded="false" id="demmande">
-    <span>
-      <i class="	fas fa-users"></i>
-    </span>
-    <span class="hide-menu">Demmandes</span>
-    <span class="badge badge-pill  ml-auto" style='font-size:24px'></span> <!-- Facultatif : vous pouvez ajouter un badge pour les nouveaux éléments -->
-  </a>
-  
-</li>
+           
 
-            <li class="sidebar-item">
-              <a class="sidebar-link" href="./sample-page.html" aria-expanded="false">
-                <span>
-                  <i class="ti ti-aperture"></i>
-                </span>
-                <span class="hide-menu">Sample Page</span>
-              </a>
-            </li>
           </ul>
           <div class="unlimited-access hide-menu bg-light-primary position-relative mb-7 mt-5 rounded">
             <div class="d-flex">

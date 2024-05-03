@@ -38,10 +38,28 @@ class EmployeController extends Controller
 
     public function dashboard(){
         $user = auth('employe')->user();
-
-        $projects = $user->Projects()->get();
+        
+        //$projects = $user->Projects()->get();
+        $projects = $user->Projects()->where('Date_Expire', '>', now())->get();
+        $somme=0;
+        $completed=0;
+        $en_cours=0;
+        $echec=0;
+        $attente=0;
+        foreach ($projects as $project) {
+            $somme += $project->taches()->count();
+            $completed +=$project->taches()->where('status','termine')->count();
+            $en_cours +=$project->taches()->where('status','en_cours')->where('assignment',null)->where('end','>',now())->count();
+            $echec +=$project->taches()->where('status','en_cours')->where('assignment',null)->where('end','<',now())->count();
+            $attente +=$project->taches()->where('status','en_cours')->where('assignment','!=',null)->count();
+        }
+       
+         $attente=intval(($attente/$somme)*100);
+         $completed=intval(($completed/$somme)*100);
+         $en_cours= intval(($en_cours/$somme)*100);
+         $echec=intval(($echec/$somme)*100);
         //return $projects;
-        return view('pages.Employe.dashboard', compact('projects'));
+        return view('pages.Employe.dashboard', compact('projects','attente','completed','en_cours','echec'));
     }
 
     /**

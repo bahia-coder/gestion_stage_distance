@@ -313,8 +313,11 @@
 
                                             <div class="box">
                                                 <select class="custom-select my-1 mr-sm-2 " name="Stagaire_id">
-                                                    @foreach ($Stagaires as $Stagaire)
-                                                        <option value="{{ $Stagaire->id }}">{{ $Stagaire->FullName }}</option>
+                                                    @foreach($Stagaires as $Stagaire)
+                                                    
+                                                    <option value="{{ $Stagaire->id }}">{{ $Stagaire->FullName }}</option>
+                                                   
+                                                        
                                                     @endforeach
                                                 </select>
                                             </div>
@@ -328,7 +331,9 @@
                                             <div class="box">
                                                 <select class="custom-select my-1 mr-sm-2 " name="Employe_id">
                                                     @foreach ($Employes as $Employe)
+                                                    @if( $Employe->projects->count() < 4)
                                                         <option value="{{ $Employe->id }}">{{ $Employe->FullName }}</option>
+                                                        @endif
                                                     @endforeach
                                                 </select>
                                             </div>

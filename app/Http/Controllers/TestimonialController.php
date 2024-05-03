@@ -54,7 +54,7 @@ class TestimonialController extends Controller
         $testimonial->Stagaire_id =$user->id;
         $testimonial->save();
     
-        return redirect()->route('Testimonial.index')->with('success', 'Your testimonial has been submitted successfully!');
+        return redirect()->route('certificat')->with('success', 'Your testimonial has been submitted successfully!');
     }
 
     /**

@@ -8,7 +8,9 @@
 <script src="{{ URL::asset('assets/libs/jquery/dist/jquery.min.js') }}"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.repeater/1.2.1/jquery.repeater.min.js"></script>
    
-
+    <script src="{{ URL::asset('assets/js/plugins-jquery.js') }}"></script>
+<script type="text/javascript">var plugin_path = '{{ asset('assets/js') }}/';</script>
+<script src="{{ URL::asset('assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js') }}"></script>
     <script src="https://js.pusher.com/8.2.0/pusher.min.js"></script>
 <script>
     // Activer l'affichage des logs de Pusher dans la console
@@ -34,7 +36,7 @@
         // Vous pouvez effectuer des actions supplémentaires ici si nécessaire
     });
 </script>
-
+<script src="{{ URL::asset('assets/libs/apexcharts/dist/apexcharts.min.js') }}"></script>
 <script src="{{ URL::asset('assets/js/plugins-jquery.js') }}"></script>
 <script type="text/javascript">var plugin_path = '{{ asset('assets/js') }}/';</script>
 <script src="{{ URL::asset('assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js') }}"></script>
@@ -145,21 +147,6 @@ $(document).ready(function() {
 });
 
 </script>
-<script>
-    function CheckAll(className, elem) {
-        var elements = document.getElementsByClassName(className);
-        var l = elements.length;
-
-        if (elem.checked) {
-            for (var i = 0; i < l; i++) {
-                elements[i].checked = true;
-            }
-        } else {
-            for (var i = 0; i < l; i++) {
-                elements[i].checked = false;
-            }
-        }
-    }
 </script>
 
 

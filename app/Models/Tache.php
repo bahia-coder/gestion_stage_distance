@@ -14,6 +14,6 @@ class Tache extends Model
     }
     public function project()
     {
-        return $this->belongsTo(Project::class, 'Project_id');
+        return $this->belongsTo('App\Models\Project', 'Project_id');
     }
 }

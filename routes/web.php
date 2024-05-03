@@ -42,6 +42,7 @@ Route::group(['middleware' => ['auth']], function () {
 
 
 });
+Route::get('/download_certificat', 'StagaireController@download_certificat')->name('download_certificat');
 
     Route::resource('Demmande', 'DemmandeController');
 
@@ -74,7 +75,7 @@ Route::group(['middleware' => ['auth:stagaire']], function () {
 });
 
             //############################# zoom route ##########################################
-           // Route::post('/assignment', 'TacheController@assignment')->name('assignment');
+           // profile Route::post('/assignment', 'TacheController@assignment')->name('assignment');
             //############################# end Chat route ######################################
 
 Route::group(['middleware' => ['auth:employe']], function () {
@@ -96,7 +97,11 @@ Route::group(['middleware' => ['auth']], function () {
     Route::post('delete_all', 'ProjectController@delete_all')->name('delete_all');
     Route::post('Filter_Departements', 'ProjectController@Filter_Departements')->name('Filter_Departements');
 }); 
-      
+
+Route::get('profile/employe', 'ProfileController@employe')->name('employe_profile');
+Route::get('profile/stagaire', 'ProfileController@stagaire')->name('stagaire_profile');
+Route::post('profile/test', 'ProfileController@employe_edit')->name('employe_edit');
+Route::post('profile/stagaire', 'ProfileController@stagaire_edit')->name('stagaire_edit');
 Route::resource('profile', 'ProfileController');
 Route::resource('settings', 'SettingController');
 Route::post('delete_all_demmandes', 'DemmandeController@delete_all')->name('delete_all_demmandes');
@@ -112,9 +117,12 @@ Route::group(['middleware' => ['auth:employe']], function () {
     Route::post('Taches/testt', 'TacheController@destroy');
     Route::post('delete_all_Tache', 'TacheController@delete_all')->name('delete_all_Tache');
 });
-
+//annonce
 Route::get('/stagaire/dashboard', 'TacheController@index')->name('dashboard.stagaires');
 Route::get('/Tasks', 'TacheController@Tasks')->name('Tasks');
+Route::get('/certificat', 'StagaireController@certificat')->name('certificat');
+Route::get('/Meetings', 'MeetingController@Meetings')->name('Meetings');
+Route::get('/Notes', 'TacheController@Notes')->name('Notes');
 Route::get('/employe/dashboard', 'EmployeController@dashboard')->name('employe.dashboard');
 
 
