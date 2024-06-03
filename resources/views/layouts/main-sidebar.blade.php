@@ -27,10 +27,6 @@
                 <span class="hide-menu">Dashboard</span>
               </a>
             </li>
-            <li class="nav-small-cap">
-              <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
-              <span class="hide-menu">PAGES</span>
-            </li>
             <li class="sidebar-item">
               <a class="sidebar-link" href="/Departement" aria-expanded="false">
                 <span>
@@ -40,11 +36,19 @@
               </a>
             </li>
             <li class="sidebar-item">
+              <a class="sidebar-link" href="{{route('Demmande.index')}}" aria-expanded="false">
+                <span>
+                  <i class="fas fa-users"></i>
+                </span>
+                <span class="hide-menu">internship application</span>
+              </a>
+            </li>
+            <li class="sidebar-item">
               <a class="sidebar-link" href="/Employe" aria-expanded="false">
                 <span>
                   <i class="fas fa-user-tie fa-1x"></i>
                 </span>
-                <span class="hide-menu">Employes</span>
+                <span class="hide-menu">Supervisors</span>
               </a>
             </li>
             <li class="sidebar-item">
@@ -52,7 +56,7 @@
                 <span>
                   <i class="fas fa-user-graduate fa-1x"></i>
                 </span>
-                <span class="hide-menu">Stagaires</span>
+                <span class="hide-menu">Trainees</span>
               </a>
             </li>
             <li class="sidebar-item">
@@ -68,13 +72,18 @@
                 <span>
                   <i class="fas fa-layer-group"></i>
                 </span>
-                <span class="hide-menu">Annonces</span>
+                <span class="hide-menu">Advertisements</span>
               </a>
             </li>
-            <li class="nav-small-cap">
-              <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
-              <span class="hide-menu">AUTH</span>
+            <li class="sidebar-item">
+              <a class="sidebar-link" href="{{route('settings.index')}}" aria-expanded="false">
+                <span>
+                  <i class="fa fa-cogs"></i>
+                </span>
+                <span class="hide-menu">Settings</span>
+              </a>
             </li>
+            
             <li class="sidebar-item">
             @if(auth('stagaire')->check())
             <a class="sidebar-link"  href="{{ route('logout','stagaire') }}" aria-expanded="false">
@@ -109,60 +118,15 @@
                                       @endif
            
             </li>
-            <li class="sidebar-item">
-              <a class="sidebar-link" href="{{route('settings.index')}}" aria-expanded="false">
-                <span>
-                  <i class="fa fa-cogs"></i>
-                </span>
-                <span class="hide-menu">Settings</span>
-              </a>
-            </li>
-            <li class="nav-small-cap">
-              <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
-              <span class="hide-menu">EXTRA</span>
-            </li>
-            <li class="sidebar-item">
-  <a class="sidebar-link" href="#" aria-expanded="false" id="demmande">
-    <span>
-      <i class="	fas fa-users"></i>
-    </span>
-    <span class="hide-menu">Demmandes</span>
-    <span class="badge badge-pill  ml-auto" style='font-size:24px'><i class="fas fa-angle-down"></i></span> <!-- Facultatif : vous pouvez ajouter un badge pour les nouveaux éléments -->
-  </a>
-  <ul class="sidebar-submenu" style="display: none;"> <!-- Ajoutez un style pour masquer le menu déroulant par défaut -->
-    <li class="sidebar-item">
-      <a class="sidebar-link" href="{{route('Demmande.index')}}">Current</a>
-    </li>
-    <li class="sidebar-item">
-      <a class="sidebar-link" href="{{route('liste_confirmer')}}">Confirmed</a>
-    </li>
-    <li class="sidebar-item">
-      <a class="sidebar-link" href="{{route('liste_annuler')}}">annuler</a>
-    </li>
-    <!-- Ajoutez d'autres éléments de menu déroulant au besoin -->
-  </ul>
-</li>
+            
+           
+            
+            
+           
 
-            <li class="sidebar-item">
-              <a class="sidebar-link" href="./sample-page.html" aria-expanded="false">
-                <span>
-                  <i class="ti ti-aperture"></i>
-                </span>
-                <span class="hide-menu">Sample Page</span>
-              </a>
-            </li>
+            
           </ul>
-          <div class="unlimited-access hide-menu bg-light-primary position-relative mb-7 mt-5 rounded">
-            <div class="d-flex">
-              <div class="unlimited-access-title me-3">
-                <h6 class="fw-semibold fs-4 mb-6 text-dark w-85">Upgrade to pro</h6>
-                <a href="https://adminmart.com/product/modernize-bootstrap-5-admin-template/" target="_blank" class="btn btn-primary fs-2 fw-semibold lh-sm">Buy Pro</a>
-              </div>
-              <div class="unlimited-access-img">
-                <img src="../assets/images/backgrounds/rocket.png" alt="" class="img-fluid">
-              </div>
-            </div>
-          </div>
+        
         </nav>
         <!-- End Sidebar navigation -->
       </div>

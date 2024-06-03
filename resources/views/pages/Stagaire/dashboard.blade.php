@@ -457,11 +457,11 @@
             </div>
         </div>
         <div class="col-sm-12 col-md-6 col-xl-3 mb-20">
-					<div class="card-box  ">
-						<h2 class="h4 ">Completed Tasks</h2>
-						<div id="chart6"></div>
+					<div class="card h-100 bg-white rounded" style="max-height:290px;">
+						<h2 class="h4 p-10">Completed Tasks</h2>
+						<div id="chart6" ></div>
 					</div>
-				</div>
+		</div>
         <div class="col-sm-12 col-md-6 col-xl-3 mb-20">
         <div class="">
             <div class="">

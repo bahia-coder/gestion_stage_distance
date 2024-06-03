@@ -372,7 +372,7 @@
 
 @section('content')
 <div class="container-fluid" >
-  @if($user->date_fin < date('Y-m-d'))
+  @if($user->date_fin > date('Y-m-d'))
   <div id="notfound">
 		<div class="notfound">
 			<div class="notfound-404">
@@ -484,7 +484,7 @@
             <div class="pm-certificate-footer">
                 <div class="col-xs-12 pm-certified text-center">
                   <p>
-                    I, Abd ljalile aglagane, Director of [Company Name], certify that {{$user->FullName}} has completed an internship at our company from {{$user->Date_debut}} to {{$user->Date_fin}}. During this period, the intern has demonstrated exemplary commitment and professionalism.
+                    I, Abdeljalile aglagane, Director of <strong>Real tech</strong>, certify that {{$user->FullName}} has completed an internship at our company from {{$user->Date_debut}} to {{$user->Date_fin}}. During this period, the intern has demonstrated exemplary commitment and professionalism.
                   </p>
                   <p>
                   We wish @if($user->Gender_id==1) him @else her @endif every success in @if($user->Gender_id==1) his @else her @endif future endeavors.

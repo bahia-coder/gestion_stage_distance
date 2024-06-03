@@ -21,7 +21,7 @@ class Employe extends Authenticatable
         return $this->hasMany('App\Models\Project','Employe_id');
     }
 
-    // علاقة بين المعلمين والانواع لجلب جنس المعلم
+  
     public function genders()
     {
         return $this->belongsTo('App\Models\Gender', 'Gender_id');

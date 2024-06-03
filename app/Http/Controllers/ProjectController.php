@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Project;
 use App\Models\Stagaire;
 use App\Models\Employe;
+use Illuminate\Support\Facades\Validator;
+
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Message;
@@ -28,7 +30,6 @@ class ProjectController extends Controller
         ->get();
         $Departements = Departement::all();
         $Employes = Employe::all();
-        // Passez les données des départements à la vue "welcome" en utilisant compact
         return view('pages.Project.index', compact('projects','Stagaires','Departements','Employes'));
     }
 
@@ -40,98 +41,104 @@ class ProjectController extends Controller
 
     
     public function store(Request $request)
-{
-    try {
-        
-        $projects = $request->projects;
-
-        // Si des projets sont soumis
-        if (!empty($projects)) {
-            foreach ($projects as $projectData) {
-                $project = new Project();
-                DB::beginTransaction();
-        $employee = Employe::findOrFail($projectData['Employe_id'])->email;
-        $Stagaire = Stagaire::findOrFail($projectData['Stagaire_id'])->email;
-        // $createConversation
-        $createConversation = Conversation::create([
-            'sender_email' => $employee,
-            'receiver_email' => $Stagaire,
-            'last_time_message' => null,
-        ]);
-        // create message
-        Message::create([
-            'conversation_id' => $createConversation->id,
-            'sender_email' => $Stagaire,
-            'receiver_email' => $Stagaire,
-            'body' => '',
-        ]);
-        DB::commit();
-
-                // Assurez-vous que toutes les données nécessaires sont fournies avant de sauvegarder
-                if (isset($projectData['nom'])) {
-                    $project->nom = $projectData['nom'];
-                    $project->Date_Expire = $projectData['Date_Expire'];
-                    $project->Stagaire_id = $projectData['Stagaire_id'];
-                    $project->Employe_id = $projectData['Employe_id'];
-                    $project->Departement_id = $projectData['Departement_id'];
-                    $project->save();
-                }
-            }
-
-            return redirect()->route('Project.index');
-        } else {
+    {
+        try {
+            $projects = $request->projects;
             
-            // Si aucun projet n'est soumis, traitez le formulaire pour un seul projet
-            $project = new Project();
-            $project->nom = $request->input('Name');
-            $project->Description = $request->input('Description');
-            $project->save();
-
-            return redirect()->route('Project.index')->with('success', 'Project added successfully');
+            if (!empty($projects)) {
+                foreach ($projects as $projectData) {
+                    
+                    $employee = Employe::findOrFail($projectData['Employe_id'])->email;
+                    $stagaire = Stagaire::findOrFail($projectData['Stagaire_id'])->email;
+                    
+                    DB::beginTransaction();
+                    
+                    $createConversation = Conversation::create([
+                        'sender_email' => $employee,
+                        'receiver_email' => $stagaire,
+                        'last_time_message' => null,
+                    ]);
+                    
+                    Message::create([
+                        'conversation_id' => $createConversation->id,
+                        'sender_email' => $stagaire,
+                        'receiver_email' => $stagaire,
+                        'body' => '',
+                    ]);
+                    
+                    DB::commit();
+                    
+                    if (isset($projectData['nom']) && isset($projectData['Date_Expire']) && isset($projectData['Stagaire_id']) && isset($projectData['Employe_id']) && isset($projectData['Departement_id'])) {
+                        $project = new Project();
+                        $project->nom = $projectData['nom'];
+                        $project->Date_Expire = $projectData['Date_Expire'];
+                        $project->Stagaire_id = $projectData['Stagaire_id'];
+                        $project->Employe_id = $projectData['Employe_id'];
+                        $project->Departement_id = $projectData['Departement_id'];
+                        $validator = Validator::make($projectData, [
+                            'Date_Expire' => 'required|date|after:now',
+                        ]);
+        
+                        if ($validator->fails()) {
+                            return redirect()->back()->with(['error' =>'Expiration date must be in the future.']);
+                            throw new \Exception('Expiration date must be in the future.');
+                        }
+                        $validator = Validator::make($projectData, [
+                            'nom' => 'required|unique:projects,nom',
+                        ]);
+        
+                        if ($validator->fails()) {
+                            
+                        return redirect()->back()->with(['error' =>'The project name is already taken.']);
+                            throw new \Exception('The project name is already taken.');
+                        }
+                        $project->save();
+                    } else {
+                        throw new \Exception('Project information is not complete.');
+                    }
+                    
+                }
+                
+                return redirect()->route('Project.index')->with('message','Projects added successfully');
+            } else {
+                $projectName = $request->input('Name');
+                $projectDescription = $request->input('Description');
+                
+                if (!$projectName || !$projectDescription) {
+                    
+                    throw new \Exception('Project information is not complete.');
+                }
+                
+                $project = new Project();
+                $project->nom = $projectName;
+                $project->Description = $projectDescription;
+                $project->save();
+                
+                return redirect()->route('Project.index')->with('message', 'Project added successfully');
+            }
+        } catch (\Exception $e) {
+            return redirect()->back()->with(['error' => $e->getMessage()]);
         }
-    } catch (\Exception $e) {
-        return redirect()->back()->withErrors(['error' => $e->getMessage()]);
     }
-}
+    
 
     public function storep(Request $request){
         return $this->uploadImage($request,'test');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Departement  $departement
-     * @return \Illuminate\Http\Response
-     */
     public function show(Departement $departement)
     {
-        //
+        //dash
     }
     public function showForm()
     {
         return view('upload');
     }
 
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Departement  $departement
-     * @return \Illuminate\Http\Response
-     */
     public function edit(Departement $departement)
     {
         //
     }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Departement  $departement
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request)
     {
         try {
@@ -149,18 +156,12 @@ class ProjectController extends Controller
             return redirect()->route('Project.index');
         }
 
-        catch
-        (\Exception $e) {
-            return redirect()->back()->withErrors(['error' => $e->getMessage()]);
+        catch(\Exception $e) {
+            return redirect()->back()->with(['error' => 'All fields are required.']);
         }
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Departement  $departement
-     * @return \Illuminate\Http\Response
-     */
+    
     public function destroy(request $request)
     {
         

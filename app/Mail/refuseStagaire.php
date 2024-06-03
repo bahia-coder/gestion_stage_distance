@@ -13,16 +13,16 @@ use Illuminate\Queue\SerializesModels;
 class refuseStagaire extends Mailable
 {
     use Queueable, SerializesModels;
-    public $Stagaire;
+    public $Demmande;
 
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct(Demmande $employe)
+    public function __construct(Demmande $Demmande)
     {
-        $this->Stagaire = $employe;
+        $this->Demmande = $Demmande;
     }
 
     /**
@@ -40,7 +40,7 @@ class refuseStagaire extends Mailable
     
     public function content()
 {
-    return (new Content())->view('email.Demmande')->with('Stagaire', $this->Stagaire);
+    return (new Content())->view('email.Demmande')->with('Stagaire', $this->Demmande);
 }
 
     /**

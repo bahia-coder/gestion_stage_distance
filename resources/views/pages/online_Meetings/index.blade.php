@@ -16,6 +16,9 @@
 <!-- breadcrumb  times-->
 @endsection
 @section('content')
+
+
+
     <!-- row -->
    <div class="container-fluid">
      <!-- row -->
@@ -91,6 +94,5 @@
    </div>
 @endsection
 @section('js')
-    @toastr_js
-    @toastr_render
+
 @endsection

@@ -57,10 +57,10 @@
                                         <thead>
                                 <tr>
                                     <th>#</th>
-                                    <th>Image</th>
+                                    <th>Photo</th>
                                     <th>Name</th>
                                     <th>Description</th>
-                                    <th>Operation</th> <!-- Ajout d'une colonne pour les opérations -->
+                                    <th>Operations</th> <!-- Ajout d'une colonne pour les opérations -->
                                 </tr>
                             </thead>
                             <tbody>
@@ -190,7 +190,7 @@
                                                    class="control-label">Description</label>
                                                  
                                                 <input type="text" name="Description" class="form-control"
-                                                       placeholder="Departement Name">
+                                                       placeholder="Description">
                                            
                                         </div>
                                         <br>
@@ -230,7 +230,30 @@
 
 <!-- Script pour ApexCharts file -->
 <script src="{{ URL::asset('assets/libs/apexcharts/dist/apexcharts.min.js') }}"></script>
-<script>
 
+<script>
+    toastr.options = {
+        "closeButton": true,
+        "debug": false,
+        "newestOnTop": false,
+        "progressBar": true,
+        "positionClass": "toast-top-right",
+        "preventDuplicates": false,
+        "onclick": null,
+        "showDuration": "300",
+        "hideDuration": "1000",
+        "timeOut": "5000",
+        "extendedTimeOut": "1000",
+        "showEasing": "swing",
+        "hideEasing": "linear",
+        "showMethod": "fadeIn",
+        "hideMethod": "fadeOut"
+    }
+
+    @if(Session::has('msg'))
+        toastr.success("{{ Session::get('msg') }}");
+    @endif
 </script>
+
+
 @endsection

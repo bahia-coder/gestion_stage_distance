@@ -4,6 +4,9 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
+        <div class="text-center mb-4">
+                        <img src="{{URL::asset('assets/images/logo.png')}}" alt="" width="200" height="200">
+                    </div>
             <div class="card">
                 <div class="card-header">{{ __('Reset Password') }}</div>
 

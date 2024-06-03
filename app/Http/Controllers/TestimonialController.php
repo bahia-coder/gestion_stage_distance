@@ -8,45 +8,29 @@ use Illuminate\Support\Facades\Redirect;
 
 class TestimonialController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    
     public function index()
     {
         $user = auth('stagaire')->user();
         $testimonial = Testimonial::where('Stagaire_id', $user->id)
         ->with('Stagaire')
-        ->latest() // Trie par date de création décroissante
+        ->latest() 
         ->first();
-
-        
-
         return view('pages.Stagaire.testimonial', compact('testimonial'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    
     public function create()
     {
         //
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+    
     public function store(Request $request)
     {
         $user = auth('stagaire')->user();
         $request->validate([
-            'testimonial' => 'required|string', // Exemple de règle de validation
+            'testimonial' => 'required|string',
         ]);
     
         $testimonial = new Testimonial();
@@ -57,52 +41,32 @@ class TestimonialController extends Controller
         return redirect()->route('certificat')->with('success', 'Your testimonial has been submitted successfully!');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Testimonial  $testimonial
-     * @return \Illuminate\Http\Response
-     */
+   
     public function show(Testimonial $testimonial)
     {
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Testimonial  $testimonial
-     * @return \Illuminate\Http\Response
-     */
+    
     public function edit(Testimonial $testimonial)
     {
-        //
+        //dash
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Testimonial  $testimonial
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request)
     {
         $user = auth('stagaire')->user();
     
         $request->validate([
-            'testimonial' => 'required|string', // Exemple de règle de validation
+            'testimonial' => 'required|string', 
         ]);
     
-        // Récupérer le testimonial du stagiaire
         $testimonial = Testimonial::where('Stagaire_id', $user->id)->first();
     
-        // Vérifier si le testimonial existe
         if (!$testimonial) {
             return redirect()->route('testimonials.index')->with('error', 'No testimonial found for this user!');
         }
     
-        // Mettre à jour le contenu du testimonial
         $testimonial->testimonial = $request->testimonial;
     
         $testimonial->save();
@@ -112,12 +76,7 @@ class TestimonialController extends Controller
     
 
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Testimonial  $testimonial
-     * @return \Illuminate\Http\Response
-     */
+   
     public function destroy(Testimonial $testimonial)
     {
         //

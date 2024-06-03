@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use App\Http\Traits\AttachFilesTrait;
 use App\Models\Departement;
 use App\Models\Employe;
+use App\Models\Testimonial;
 use App\Models\Gender;
 use App\Models\Setting;
 use App\Models\Stagaire;
@@ -29,7 +30,7 @@ class SettingController extends Controller
                 Setting::where('key', $key)->update(['value' => $value]);
             }
 
-//            $key = array_keys($info);
+//            $key = array_keys($info); back
 //            $value = array_values($info);
 //            for($i =0; $i<count($info);$i++){
 //                Setting::where('key', $key[$i])->update(['value' => $value[$i]]);
@@ -49,16 +50,18 @@ class SettingController extends Controller
         }
 
     }
+    //page d'acceuile
     public function indexpage(){
         $list_Employes = Employe::latest()->take(4)->get();
 
         $list_Departements = Departement::all();
         $genders = Gender::all();
+        $testimonials = Testimonial::all();
         $collection = Setting::all();
         $setting['setting'] = $collection->flatMap(function ($collection) {
             return [$collection->key => $collection->value];
         });
-        return view('page_index.index',$setting, compact( 'list_Departements','genders','list_Employes'));
+        return view('page_index.index',$setting, compact( 'list_Departements','genders','list_Employes','testimonials'));
     }
    
 }

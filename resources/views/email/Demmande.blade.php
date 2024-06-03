@@ -31,9 +31,6 @@
         <p>We encourage you to continue pursuing your career goals and exploring other opportunities that align with your skills and aspirations. We believe you have a bright future ahead and wish you the best in your endeavors.</p>
         <p>Thank you once again . We hope our paths may cross again in the future.</p>
         <p>Sincerely,</p>
-        <p>[Your Name]<br>
-        Admin<br>
-        [Your Company]</p>
     </div>
 </body>
 </html>

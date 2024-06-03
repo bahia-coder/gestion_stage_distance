@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Hash;
 class ProfileController extends Controller
 {
     use UploadImageTrait;
+    
     public function index()
     {
         $information = User::findorFail(auth()->user()->id);
@@ -129,6 +130,6 @@ public function stagaire_edit(Request $request){
 
     public function destroy($id)
     {
-        //
+        //dash
     }
 }

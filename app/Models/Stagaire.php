@@ -18,7 +18,7 @@ class Stagaire  extends Authenticatable
         return $this->belongsTo('App\Models\Departement','Departement_id');
     }
 
-    // علاقة بين المعلمين والانواع لجلب جنس المعلم
+    
     public function genders()
     {
         return $this->belongsTo('App\Models\Gender', 'Gender_id');

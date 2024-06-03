@@ -26,7 +26,7 @@
                 <div class="card-body">
                     <form action="{{route('Stagaire.create')}}" method="get">
                 <button type="submit" class="btn-info btn-sm" >
-                    Add new Stagaire </button>
+                    Add new trainee </button>
 </form>
                     
                 </div>
@@ -67,13 +67,13 @@
         <thead>
             <tr class="text-dark">
                 <th>Profile</th>
-                <th>FullName</th>
+                <th>Full Name</th>
                 <th>Email</th>
                 <th>Address</th>
-                <th>Telephone</th>
-                <th>Date_Debut</th>
-                <th>Date_Fin</th>
-                <th>Actions</th>
+                <th>Phone</th>
+                <th>Start Date</th>
+                <th>End Date</th>
+                <th>Operations</th>
             </tr>
         </thead>
         <tbody>

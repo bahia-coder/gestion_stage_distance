@@ -5,7 +5,7 @@
 * Author: BootstrapMade.com   services
 * License: https://bootstrapmade.com/license/
 */
-
+/* footer */
 /*--------------------------------------------------------------
 # General
 --------------------------------------------------------------*/
@@ -1095,6 +1095,7 @@ section {
 .testimonials .testimonials-carousel,
 .testimonials .testimonials-slider {
   overflow: hidden;
+  
 }
 
 .testimonials .testimonial-item {
@@ -1153,6 +1154,7 @@ section {
   border-radius: 6px;
   position: relative;
   z-index: 1;
+  height:350px;
   box-shadow: 0 0px 20px 0 rgba(0, 0, 0, 0.1);
 }
 
@@ -1168,7 +1170,7 @@ section {
   opacity: 1;
   border: 1px solid #5846f9;
 }
-
+/* chart6 breakup */
 .testimonials .swiper-pagination .swiper-pagination-bullet-active {
   background-color: #5846f9;
 }
@@ -1757,23 +1759,20 @@ section {
 #footer {
   color: #fff;
   font-size: 14px;
+  
   background: linear-gradient(45deg, rgba(86, 58, 250, 0.9) 0%, rgba(116, 15, 214, 0.9) 100%), url("../img/hero-bg.jpg") center center no-repeat;
   background-size: cover;
 }
 
 #footer .footer-top {
-  padding: 60px 0 30px 0;
+  padding: 20px 0 0px 0;
   position: relative;
 }
 
-#footer .footer-top .footer-contact {
-  margin-bottom: 30px;
-}
+
 
 #footer .footer-top .footer-contact h3 {
   font-size: 28px;
-  margin: 0 0 30px 0;
-  padding: 2px 0 2px 0;
   line-height: 1;
   font-weight: 500;
   text-transform: uppercase;
@@ -1793,9 +1792,7 @@ section {
   padding-bottom: 12px;
 }
 
-#footer .footer-top .footer-links {
-  margin-bottom: 30px;
-}
+
 
 #footer .footer-top .footer-links ul {
   list-style: none;
@@ -1844,7 +1841,7 @@ section {
 }
 
 #footer .footer-newsletter form {
-  margin-top: 30px;
+ 
   background: #fff;
   padding: 6px 10px;
   position: relative;
@@ -1867,7 +1864,6 @@ section {
   border: 0;
   background: none;
   font-size: 16px;
-  padding: 0 20px;
   background: rgba(123, 39, 216, 0.8);
   color: #fff;
   transition: 0.3s;
@@ -1904,10 +1900,10 @@ section {
   border-radius: 50%;
   text-align: center;
   width: 36px;
-  height: 36px;
+  
   transition: 0.3s;
 }
-
+/* testimonials */
 #footer .social-links a:hover {
   background: rgba(255, 255, 255, 0.2);
   color: #fff;

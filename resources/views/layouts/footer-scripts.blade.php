@@ -12,12 +12,42 @@
 <script type="text/javascript">var plugin_path = '{{ asset('assets/js') }}/';</script>
 <script src="{{ URL::asset('assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js') }}"></script>
     <script src="https://js.pusher.com/8.2.0/pusher.min.js"></script>
+    <script>
+        window._ = require('lodash');
+
+/**
+ * We'll load the axios HTTP library which allows us to easily issue requests
+ * to our Laravel back-end. This library automatically handles sending the
+ * CSRF token as a header based on the value of the "XSRF" token cookie.
+ */
+
+window.axios = require('axios');
+
+window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
+
+/**
+ * Echo exposes an expressive API for subscribing to channels and listening
+ * for events that are broadcast by Laravel. Echo and event broadcasting
+ * allows your team to easily build robust real-time web applications. custom
+ */
+
+import Echo from 'laravel-echo';
+
+window.Pusher = require('pusher-js');
+
+window.Echo = new Echo({
+    broadcaster: 'pusher',
+    key: '44b8d191ad338898ca13',
+    cluster: 'mt1',
+    forceTLS: true
+});
+    </script>
 <script>
     // Activer l'affichage des logs de Pusher dans la console
     Pusher.logToConsole = true;
 
     // Initialiser Pusher avec votre clé d'application et le cluster approprié
-    var pusher = new Pusher('ba72c80e67d1f5460b3d', {
+    var pusher = new Pusher('44b8d191ad338898ca13', {
         cluster: 'mt1'
     });
 
@@ -60,12 +90,13 @@
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 <!-- jsPDF -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
+<!-- <script src="{{ URL::asset('assets/js/toastr.js') }}"></script> -->
 
 <!-- Inclure Popper.js ltr-->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
 <!-- Inclure Bootstrap JavaScript -->
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-
+<!-- toast -->
 @if(session()->has('success'))
     <script>
 
@@ -150,6 +181,7 @@ $(document).ready(function() {
 </script>
 
 
+
 <script>
     $(document).ready(function () {
         $('select[name="Grade_id"]').on('change', function () {
@@ -177,7 +209,7 @@ $(document).ready(function() {
     });
 </script>
 
-
+<!-- @yield('js')toastr -->
 <script>
     $(document).ready(function () {
         $('select[name="Classroom_id"]').on('change', function () {
@@ -262,6 +294,74 @@ $(document).ready(function() {
     });
 </script>
 
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        function afficherError() {
+            @php
+                if (Session::has('error')) {
+                    $error = Session::get('error');
+                }
+            @endphp
+            @isset($error)
+                toastr.options = {
+                    "closeButton": true,
+                    "debug": false,
+                    "newestOnTop": false,
+                    "progressBar": true,
+                    "positionClass": "toast-top-right",
+                    "preventDuplicates": false,
+                    "onclick": null,
+                    "showDuration": "300",
+                    "hideDuration": "1000",
+                    "timeOut": "5000",
+                    "extendedTimeOut": "1000",
+                    "showEasing": "swing",
+                    "hideEasing": "linear",
+                    "showMethod": "fadeIn",
+                    "toastClass": "toast-error",
+                    "hideMethod": "fadeOut"
+                };
+                toastr.error("{{ $error }}");
+            @endisset
+        }
 
+        // Appeler la fonction pour afficher les erreurs
+        afficherError();
 
+        // Fonction pour afficher le Toastr si un message est présent dans la session
+        function afficherToastr() {
+            @php
+                if (Session::has('message')) {
+                    $message = Session::get('message');
+                }
+            @endphp
+
+            // Si le message existe, afficher le message Toastr
+            @isset($message)
+                toastr.options = {
+                    "closeButton": true,
+                    "debug": false,
+                    "newestOnTop": false,
+                    "progressBar": true,
+                    "positionClass": "toast-top-right",
+                    "preventDuplicates": false,
+                    "onclick": null,
+                    "showDuration": "300",
+                    "hideDuration": "1000",
+                    "timeOut": "5000",
+                    "extendedTimeOut": "1000",
+                    "showEasing": "swing",
+                    "hideEasing": "linear",
+                    "showMethod": "fadeIn",
+                    "hideMethod": "fadeOut",
+                    "toastClass": "toast-success" // Ajouter la classe pour la couleur verte
+                };
+                toastr.success('{{ $message }}');
+            @endisset
+        }
+
+        // Appeler la fonction pour afficher le Toastr
+        afficherToastr();
+    });
+</script>
 @yield('js')

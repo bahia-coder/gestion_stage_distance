@@ -37,10 +37,10 @@
 
                 <!-- Boutons d'ajout et de suppression -->
                 <button type="button" class=" btn-info btn-sm" data-toggle="modal" data-target="#exampleModal">
-                    Ajouter un Project
+                    Add new Project
                 </button>
                 <button type="button" class="btn-info btn-sm" id="btn_delete_all">
-                    Supprimer la sélection
+                Delete the selection
                 </button>
                 <br><br>
 
@@ -65,9 +65,10 @@
                                 <th><input name="select_all" id="example-select-all" type="checkbox" onclick="CheckAll('box1', this)" /></th>
                                 <th>#</th>
                                 <th>Project_Name</th>
-                                <th>Encadranre</th>
-                                <th>Stagaire</th>
-                                <th>Processes</th>
+                                <th>Supervisor</th>
+                                <th>Trainee</th>
+                                <th>Expirqtion Date</th>
+                                <th>Operations</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -88,8 +89,9 @@
             <td><input type="checkbox"  value="{{ $project->id }}" class="box1" ></td>
             <td>{{ $i }}</td>
             <td>{{ $project->nom }}</td>
-            <td>{{ $project->Stagaires->FullName }}</td>
             <td>{{ $project->Employes->FullName }}</td>
+            <td>{{ $project->Stagaires->FullName }}</td>
+            <td>{{ $project->Date_Expire}}</td>
             <td>
                 <button type="button" class="btn btn-info btn-sm" data-toggle="modal"
                     data-target="#edit{{ $project->id }}"
@@ -128,13 +130,13 @@
                                                         <input id="Name" type="text" name="Name"
                                                                class="form-control"
                                                                value="{{ $project->nom}}"
-                                                               required>
+                                                               >
                                                         <input id="id" type="hidden" name="id" class="form-control"
                                                                value="{{ $project->id }}">
                                                     </div>
                                                     <div class="col">
         
-        <label for="Date_Expire">Date_Expire</label>
+        <label for="Date_Expire">Expiration_Date</label>
                                                 <input type="date" class="form-control" id="Date_Expire" name="Date_Expire"  value="{{$project->Date_Expire}}">
        
                                 </div>
@@ -143,7 +145,7 @@
              <div class="row">
              <div class="form-group col">
                                                     <label
-                                                        for="exampleFormControlTextarea1">Stagaire
+                                                        for="exampleFormControlTextarea1">Trainee
                                                         :</label>
                                                     <select class="custom-select my-1 mr-sm-2"
                                                             id="exampleFormControlSelect1" name="Stagaire_id">
@@ -161,7 +163,7 @@
                                                 <br>
                                                 <div class="form-group col">
                                                     <label
-                                                        for="exampleFormControlTextarea1">Encadrant
+                                                        for="exampleFormControlTextarea1">Supervisor
                                                         :</label>
                                                     <select class="custom-select my-1 mr-sm-2"
                                                             id="exampleFormControlSelect1" name="Employe_id">
@@ -267,7 +269,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h5 style="font-family: 'Cairo', sans-serif;" class="modal-title" id="exampleModalLabel">
-                    Ajouter une classe
+                    Add New Project
                 </h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
@@ -308,7 +310,7 @@
                                     <div class="row">
                                     <div class="col">
                                             <label for="Name_en"
-                                                class="mr-sm-2">Stagaire_Name
+                                                class="mr-sm-2">Trainee Name
                                                 :</label>
 
                                             <div class="box">
@@ -325,7 +327,7 @@
                                         </div>
                                         <div class="col">
                                             <label for="Name_en"
-                                                class="mr-sm-2">Employe Name
+                                                class="mr-sm-2">Supervisor Name
                                                 :</label>
 
                                             <div class="box">
@@ -340,13 +342,13 @@
 
                                         </div>
                                         <div class="col">
-        <label for="Date_Expire">Date_Expire</label>
+        <label for="Date_Expire">Expiration_Date</label>
         <input type="date" class="form-control" id="Date_Expire" name="Date_Expire" >
        
                                 </div>
                                         <div class="col mt-30">
                                         <div class="col-sm-1">
-                                            <button type="button" data-repeater-delete class="btn btn-danger">Supprimer</button>
+                                            <button type="button" data-repeater-delete class="btn btn-danger">Delete</button>
                                         </div>
                                     </div>
                                     </div>
@@ -356,7 +358,7 @@
                             </div>
                             <div class="row">
                                 <div class="col-12">
-                                    <button type="button" data-repeater-create class="btn btn-primary">Ajouter</button>
+                                    <button type="button" data-repeater-create class="btn btn-primary">Add another</button>
                                 </div>
                             </div>
                             
@@ -365,8 +367,8 @@
                 
             </div>
             <div class="modal-footer">
-                <button type="submit" class="btn btn-success">Enregistrer</button>
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+                <button type="submit" class="btn btn-success">Save</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
             </div>
         </div>
         </form>
@@ -410,7 +412,7 @@
 @endsection
 
 @section('js')
-<!-- Ajoutez vos scripts JavaScript ici -->
+<!-- Ajoutez vos scripts JavaScript ici  -->
 <script type="text/javascript">
     $(document).ready(function () {
         $('.repeater').repeater({
@@ -441,5 +443,6 @@
         $('#datatable').DataTable();
     });
 </script>
+
 <script src="https://cdn.datatables.net/v/bs4/dt-1.10.24/b-1.7.0/b-colvis-1.7.0/b-html5-1.7.0/b-print-1.7.0/r-2.2.7/datatables.min.js"></script>
 @endsection

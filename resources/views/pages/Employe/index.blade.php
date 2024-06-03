@@ -26,7 +26,7 @@
                 <div class="card-body">
                     <form action="{{route('Employe.create')}}" method="get">
                 <button type="submit" class="btn-info btn-sm" >
-                    Add new Employe </button>
+                    Add new supervisor </button>
 </form>
                     
                 </div>
@@ -70,9 +70,9 @@
                 <th>FullName</th>
                 <th>Email</th>
                 <th>Address</th>
-                <th>Telephone</th>
-                <th>Joining_Date</th>
-                <th>Actions</th>
+                <th>Phone</th>
+                <th>Date of Joining</th>
+                <th>Operations</th>
             </tr>
         </thead>
         <tbody>
@@ -87,7 +87,6 @@
                 <td>{{ $list_Employes->telephone}}</td>
                 <td>{{ $list_Employes->Joining_Date}}</td>
                 <td>
-                <a href="#" class="btn btn-outline-info btn-sm">show</a>
                     <a href="{{route('Employe.edit',$list_Employes->id)}}" class="btn btn-outline-warning btn-sm">edit</a>
                     <a href="#"class="btn btn-outline-danger btn-sm" data-toggle="modal"data-target="#delete{{ $list_Employes->id }}">delete</a>
                 </td>
@@ -97,7 +96,7 @@
                                         <div class="modal-content">
                                              <div class="modal-header">
                                                   <h5 style="font-family: 'Cairo', sans-serif;" class="modal-title" id="exampleModalLabel">
-                                                                                        delete employe
+                                                                                        delete supervisor
                                                  </h5>
                                                 <button type="button" class="close"data-dismiss="modal"aria-label="Close">
                                                      <span aria-hidden="true">&times;</span>
@@ -107,7 +106,7 @@
                                                  <form action="{{ route('Employe.destroy', 'testt') }}" method="post">
                                                      @method('DELETE')
                                                      @csrf
-                                                     Are you sure you want to delete  Employe :{{$list_Employes->FullName}}
+                                                     Are you sure you want to delete  supervisor :{{$list_Employes->FullName}}
                                                       <input id="id" type="hidden" name="id" class="form-control" value="{{ $list_Employes->id }}">
                                                          <div class="modal-footer">
                                                              <button type="button" class="btn btn-secondary"  data-dismiss="modal">close</button>

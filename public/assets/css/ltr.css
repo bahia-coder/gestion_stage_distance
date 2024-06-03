@@ -1634,7 +1634,7 @@ pre code {
 
 .table-responsive > .table-bordered {
   border: 0; }
-
+/* chat */
 .form-control {
   display: block;
   width: 100%;
@@ -1648,6 +1648,20 @@ pre code {
   border-radius: .25rem;
   transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out; }
 
+
+  .form-controll {
+    display: block;
+    width: 100%;
+    padding: .375rem .75rem;
+    font-size: 1rem;
+    line-height: 1.5;
+    color: #495057;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid #ced4da;
+    border-radius: .25rem;
+    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out; }
+  
 .form-control::-ms-expand {
   background-color: transparent;
   border: 0; }
@@ -23873,7 +23887,7 @@ form textarea:focus {
 
 
   
-  /* fc */
+  /* fc breakup*/
   .card-box, .da-card{
     background-color: #ffffff;
     -webkit-border-radius: 10px;
@@ -24225,11 +24239,11 @@ a[data-goto]:hover {
   padding-right: 1px;
   border-top-right-radius: 0;
   border-bottom-right-radius: 0; }
-
+/* card-box */
 .fc-ltr .fc-h-event .fc-start-resizer, .fc-rtl .fc-h-event .fc-end-resizer {
   cursor: w-resize;
   left: -1px; }
-
+/* main-content-body-chat */
 .fc-ltr .fc-h-event .fc-end-resizer, .fc-rtl .fc-h-event .fc-start-resizer {
   cursor: e-resize;
   right: -1px; }
@@ -24906,7 +24920,7 @@ svg {
   padding-left: 3px; }
 
 /**
- * simplemde v1.11.2
+ * simplemde v1.11.2   form-control
  * Copyright Next Step Webs, Inc.
  * @link https://github.com/NextStepWebs/simplemde-markdown-editor
  * @license MIT

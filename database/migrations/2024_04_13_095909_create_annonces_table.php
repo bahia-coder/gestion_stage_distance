@@ -15,6 +15,8 @@ return new class extends Migration
     {
         Schema::create('annonces', function (Blueprint $table) {
             $table->id();
+            $table->bigInteger('Departement_id')->unsigned();
+            $table->foreign('Departement_id')->references('id')->on('departements')->onDelete('cascade');
             $table->string('Title');
             $table->text('Body');
             $table->text('signature');

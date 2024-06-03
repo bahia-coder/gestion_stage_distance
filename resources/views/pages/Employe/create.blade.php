@@ -38,7 +38,7 @@
                              @csrf
                             <div class="form-row">
                                                <div class="col">
-                                    <label for="Name">Name</label>
+                                    <label for="Name"> FullName</label>
                                     <input type="text" name="Name" class="form-control">
                                     @error('Name')
                                     <i class="fa fa-exclamation-circle text-danger"></i> <!-- Icône d'erreur FontAwesome -->
@@ -117,7 +117,7 @@
 
 
                                     <div class="col">
-        <label for="Joining_Date">Joining_Date</label>
+        <label for="Joining_Date"> Date of Joining</label>
         <input type="date" class="form-control" id="Joining_Date" name="Joining_Date" >
         @error('Joining_Date')
                 <i class="fa fa-exclamation-circle text-danger"></i> <!-- Icône d'erreur FontAwesome -->
@@ -126,7 +126,7 @@
         @enderror
                                 </div>
                                 <div class="col">
-        <label for="Telephone">Telephone</label>
+        <label for="Telephone">Phone</label>
         <input type="text" class="form-control" id="Telephone" name="Telephone" placeholder="06 - - - - - - - -">
         @error('Telephone')   
         <i class="fa fa-exclamation-circle text-danger"></i> <!-- Icône d'erreur FontAwesome -->
@@ -137,7 +137,7 @@
                                 </div>
                                 <div class="col">
                             <label for="photo"
-                                                   class="label-control">Department Photo</label>
+                                                   class="label-control">supervisor Photo</label>
                                         <br>
                                                    <input type="file" name="photo" class="form-control">
                                         </div>
@@ -147,7 +147,7 @@
 
                             
 
-                            <button class="btn btn-success btn-sm nextBtn btn-lg pull-right" type="submit">Add Employe</button>
+                            <button class="btn btn-success btn-sm nextBtn btn-lg pull-right" type="submit">Add supervisor</button>
                     </form>
                         </div>
                     </div>

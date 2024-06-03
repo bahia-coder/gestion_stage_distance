@@ -38,7 +38,7 @@
                              @csrf
                             <div class="form-row">
                                                <div class="col">
-                                    <label for="Name">Name</label>
+                                    <label for="Name">Full Name</label>
                                     <input type="text" name="Name" class="form-control">
                                     @error('Name')
                                     <i class="fa fa-exclamation-circle text-danger"></i> <!-- Icône d'erreur FontAwesome -->
@@ -117,7 +117,7 @@
 
 
                                     <div class="col">
-        <label for="Date_debut">Date_debut</label>
+        <label for="Date_debut">Start Date</label>
         <input type="date" class="form-control" id="Date_debut" name="Date_debut" >
         @error('Date_debut')
                 <i class="fa fa-exclamation-circle text-danger"></i> <!-- Icône d'erreur FontAwesome -->
@@ -127,7 +127,7 @@
         @enderror
                                 </div>
                                  <div class="col">
-        <label for="Date_fin">Date_fin</label>
+        <label for="Date_fin">End Date</label>
         <input type="date" class="form-control" id="Date_fin" name="Date_fin" >
         @error('Date_fin')
                 <i class="fa fa-exclamation-circle text-danger"></i> <!-- Icône d'erreur FontAwesome -->
@@ -137,7 +137,7 @@
         @enderror
                                 </div>
                                 <div class="col">
-        <label for="Telephone">Telephone</label>
+        <label for="Telephone">Phone</label>
         <input type="text" class="form-control" id="Telephone" name="Telephone" placeholder="06 - - - - - - - -">
         @error('Telephone')   
         <i class="fa fa-exclamation-circle text-danger"></i> <!-- Icône d'erreur FontAwesome -->
@@ -148,7 +148,7 @@
                                 </div>
                                  <div class="col">
                             <label for="photo"
-                                                   class="label-control">Stagire Photo</label>
+                                                   class="label-control">trainee Photo</label>
                                         <br>
                                                    <input type="file" name="photo" class="form-control">
                                         </div>
@@ -160,7 +160,7 @@
 
                             
 
-                            <button class="btn btn-success btn-sm nextBtn btn-lg pull-right" type="submit">Add Stagaire</button>
+                            <button class="btn btn-success btn-sm nextBtn btn-lg pull-right" type="submit">Add trainee</button>
                     </form>
                         </div>
                     </div>

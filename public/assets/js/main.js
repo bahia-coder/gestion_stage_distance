@@ -2,7 +2,7 @@
 * Template Name: Techie
 * Template URL: https://bootstrapmade.com/techie-free-skin-bootstrap-3/
 * Updated: Mar 17 2024 with Bootstrap v5.3.3
-* Author: BootstrapMade.com
+* Author: BootstrapMade.com breakup chart
 * License: https://bootstrapmade.com/license/
 */
 

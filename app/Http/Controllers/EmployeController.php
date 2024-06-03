@@ -17,11 +17,6 @@ use Illuminate\Http\Request;
 class EmployeController extends Controller
 {
     use UploadImageTrait;
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
    
 
     public function index()
@@ -29,17 +24,13 @@ class EmployeController extends Controller
     $Departements = Departement::with(['employes'])->get();
     $list_Departements = Departement::all();
     $employes = Employe::all();
-        // Passez les données des départements à la vue "welcome" en utilisant compact
         return view('pages.Employe.index', compact('employes','Departements','list_Departements'));
     }
-    public function projects(){
-        
-    }
+    
 
     public function dashboard(){
         $user = auth('employe')->user();
         
-        //$projects = $user->Projects()->get();
         $projects = $user->Projects()->where('Date_Expire', '>', now())->get();
         $somme=0;
         $completed=0;
@@ -58,15 +49,10 @@ class EmployeController extends Controller
          $completed=intval(($completed/$somme)*100);
          $en_cours= intval(($en_cours/$somme)*100);
          $echec=intval(($echec/$somme)*100);
-        //return $projects;
         return view('pages.Employe.dashboard', compact('projects','attente','completed','en_cours','echec'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+   
     public function create()
     {
         $departements= Departement::all();
@@ -75,15 +61,9 @@ class EmployeController extends Controller
         
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+    
     public function store(Request $request)
 {
-    // Validate the incoming request data
     $validatedData = $request->validate([
         'Name' => 'required|string|max:255',
         'Email' => 'required|email|unique:employes',
@@ -93,9 +73,29 @@ class EmployeController extends Controller
         'Gender_id' => 'required',
         'Joining_Date' => 'required|date',
         'Telephone'=>'required|max:10'
+    ],[
+        'Name.required' => 'The name field is required.',
+        'Name.string' => 'The name must be a string.',
+        'Name.max' => 'The name may not be greater than 255 characters.',
+        'Email.required' => 'The email field is required.',
+        'Email.email' => 'Please enter a valid email address.',
+        'Email.unique' => 'The email has already been taken.',
+        'Address.required' => 'The address field is required.',
+        'Address.string' => 'The address must be a string.',
+        'Address.max' => 'The address may not be greater than 255 characters.',
+        'password.required' => 'The password field is required.',
+        'password.string' => 'The password must be a string.',
+        'password.min' => 'The password must be at least 8 characters.',
+        'Specialization_id.required' => 'The specialization field is required.',
+        'Gender_id.required' => 'The gender field is required.',
+        'Date_debut.required' => 'The start date field is required.',
+        'Date_debut.date' => 'Please enter a valid start date.',
+        'Date_fin.required' => 'The end date field is required.',
+        'Date_fin.date' => 'Please enter a valid end date.',
+        'Telephone.required' => 'The telephone field is required.',
+        'Telephone.max' => 'The telephone may not be greater than 10 characters.'
     ]);
 
-    // Process the validated data and store the new employee
     
     $employee = new Employe();
     $employee->telephone = $validatedData['Telephone'];
@@ -111,38 +111,40 @@ class EmployeController extends Controller
     $employee->photo=$path;
     }
     $employe=$employee;
-    //$employe->password = $validatedData['password'];
     $employee->save();
-    //Mail::to($employee->email)->send(new EmployeeCreated($employe));
-
-    // Redirect the user after storing the employee
-    return redirect()->route('Employe.index')->with('success', 'Employee added successfully');
+    return redirect()->route('Employe.index')->with('message', 'Supervisor created successfully');
 }
 
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Employe  $employe
-     * @return \Illuminate\Http\Response
-     */
     public function show(Employe $employe)
     {
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Employe  $employe
-     * @return \Illuminate\Http\Response
-     */
+   
 
 
      public function TaskProject(Int $id){
+        $Taches = Project::findOrFail($id)->Taches;
+        $termine=0;
+        $en_cours=0;
+        $overdue=0;
+        $somme=0;
+        if($Taches->isNotEmpty()){
+            foreach($Taches as $tache){
+                $somme++;
+                if($tache->assignment != null) {
+                    $termine++;
+                }
+                if($tache->assignment == null && $tache->status == 'en_cours' && $tache->end < now()) {
+                    $overdue++;
+               }  if( $tache->assignment == null && $tache->status == 'en_cours' && $tache->end > now()) {
+                   $en_cours++;
+               }
+            }
+        }
         $Taches = Project::findOrFail($id)->Taches->where('status', 'en_cours');
-      
-            return view('pages.Employe.taches',compact('Taches','id'));
+            return view('pages.Employe.taches',compact('Taches','id','overdue','en_cours','termine','somme'));
      }
     public function edit(Int $id)
     {
@@ -153,23 +155,9 @@ class EmployeController extends Controller
     return view('pages.Employe.edit',compact('employe','departements','genders'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Employe  $employe
-     * @return \Illuminate\Http\Response
-     */
-   /**
- * Update the specified resource in storage.
- *
- * @param  \Illuminate\Http\Request  $request
- * @param  \App\Models\Employe  $employe
- * @return \Illuminate\Http\Response
- */
+
 public function update(Request $request)
 {
-    // Validate the incoming request data
     $validatedData = $request->validate([
         'Name' => 'required|string|max:255',
         'Email' => 'required|email|unique:employes,email,' . $request->id,
@@ -178,9 +166,29 @@ public function update(Request $request)
         'Gender_id' => 'required',
         'Joining_Date' => 'required|date',
         'Telephone'=>'required|max:10',
+    ],[
+        'Name.required' => 'The name field is required.',
+        'Name.string' => 'The name must be a string.',
+        'Name.max' => 'The name may not be greater than 255 characters.',
+        'Email.required' => 'The email field is required.',
+        'Email.email' => 'Please enter a valid email address.',
+        'Email.unique' => 'The email has already been taken.',
+        'Address.required' => 'The address field is required.',
+        'Address.string' => 'The address must be a string.',
+        'Address.max' => 'The address may not be greater than 255 characters.',
+        'password.required' => 'The password field is required.',
+        'password.string' => 'The password must be a string.',
+        'password.min' => 'The password must be at least 8 characters.',
+        'Specialization_id.required' => 'The specialization field is required.',
+        'Gender_id.required' => 'The gender field is required.',
+        'Date_debut.required' => 'The start date field is required.',
+        'Date_debut.date' => 'Please enter a valid start date.',
+        'Date_fin.required' => 'The end date field is required.',
+        'Date_fin.date' => 'Please enter a valid end date.',
+        'Telephone.required' => 'The telephone field is required.',
+        'Telephone.max' => 'The telephone may not be greater than 10 characters.'
     ]);
     $employe=Employe::findOrFail($request->id);
-    // Update the employee record
     $employe->FullName = $validatedData['Name'];
     $employe->email = $validatedData['Email'];
     $employe->Address = $validatedData['Address'];
@@ -198,16 +206,11 @@ public function update(Request $request)
 
     $employe->save();
 
-    return redirect()->route('Employe.index')->with('success', 'Employee updated successfully');
+    return redirect()->route('Employe.index')->with('message', 'Supervisor updated successfully');
 }
 
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Employe  $employe
-     * @return \Illuminate\Http\Response
-     */
+    
     public function destroy(request $request)
     {
         

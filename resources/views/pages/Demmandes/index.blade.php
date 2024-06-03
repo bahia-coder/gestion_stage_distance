@@ -36,8 +36,9 @@
             @endif
 
                 <!-- Boutons d'ajout et de suppression -->
-                <button type="button" class="button x-small" id="btn_delete_all">
-                    Supprimer la sélection
+                
+                <button type="button" class="btn btn-info btn-sm" id="btn_delete_all">
+                Delete the selection
                 </button>
                 <br><br>
                 <form action="{{ route('Filter_Departements_demmandes') }}" method="POST">
@@ -57,14 +58,14 @@
                             <tr>
                                 <th><input name="select_all" id="example-select-all" type="checkbox" onclick="CheckAll('box1', this)" /></th>
                                 <th>#</th>
-                                <th>Name</th>
+                                <th>Full Name</th>
                                 <th>Email</th>
-                                <th>Telephone</th>
+                                <th>Phone</th>
                                 <th>Address</th>
-                                <th>Date_Debut</th>
-                                <th>Date_fin</th>
+                                <th>Start Date</th>
+                                <th>End Date</th>
                                 <th>CV</th>
-                                <th>Process</th>
+                                <th>Operations</th>
                                 
                             </tr>
                         </thead>

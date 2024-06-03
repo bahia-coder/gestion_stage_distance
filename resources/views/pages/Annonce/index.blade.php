@@ -63,7 +63,7 @@
                         <div class="card card-statistics h-100">
                             <div class="card-body">
                                 <a  href="#" data-toggle="modal" data-target="#exampleModal" class="btn btn-info btn-sm" role="button"
-                                   aria-pressed="true">Add Annonce</a><br><br>
+                                   aria-pressed="true">Add Adverertesement</a><br><br>
                                 <div class="table-responsive">
                                 <table id="datatable" class="table  table-hover table-sm table-bordered p-0"
                                            data-page-length="50"
@@ -118,7 +118,7 @@ class="btn btn-outline-success btn-sm" href="{{route('annonce.pdf',$annonce->id)
                                  <div class="modal-dialog" role="document">
                                     <div class="modal-content">
                                       <div class="modal-header">
-                                        <h5 class="modal-title" style="font-family: 'Cairo', sans-serif;" id="exampleModalLabel"> edit departemen </h5>
+                                        <h5 class="modal-title" style="font-family: 'Cairo', sans-serif;" id="exampleModalLabel"> edit Advertisement </h5>
                                         <button type="button" class="close" data-dismiss="modal"  aria-label="Close">
                                           <span aria-hidden="true">&times;</span>
                                      </button>
@@ -134,7 +134,8 @@ class="btn btn-outline-success btn-sm" href="{{route('annonce.pdf',$annonce->id)
                                 </div>
                                 <div class="col">
                                      <label for="Body"class="control-label">Content</label>
-                                     <input type="text" name="Body" class="form-control" value="{{ $annonce->Body }}">
+                                     <textarea class="form-control"  name="Body"cols="60" rows="6"  placeholder="Advertesement Content">{{ $annonce->Body }}</textarea>
+                      
                                       <input id="id" type="hidden" name="id" class="form-control" value="{{ $annonce->id }}">
                              </div>
                              <br>
@@ -168,7 +169,7 @@ class="btn btn-outline-success btn-sm" href="{{route('annonce.pdf',$annonce->id)
                                 <div class="modal-header">
                                     <h5 class="modal-title" style="font-family: 'Cairo', sans-serif;"
                                         id="exampleModalLabel">
-                                        Add annonce</h5>
+                                        Add Adverertesement</h5>
                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                         <span aria-hidden="true">&times;</span>
                                     </button>
@@ -179,23 +180,35 @@ class="btn btn-outline-success btn-sm" href="{{route('annonce.pdf',$annonce->id)
                                     @csrf
                                             <div class="col">
                                             <label for="Title"
-                                                   class="control-label">Body Title</label>
+                                                   class="control-label">Title</label>
                                                 <input type="text" name="Title" class="form-control"
-                                                       placeholder="Annonce Title">
+                                                       placeholder="Advertesement Title">
                                             </div>
                                         <br>
 
 
                                         <div class="col">
                                             <label for="Body"
-                                                   class="control-label">Body</label>
-                                                 <textarea class="form-control"  name="Body"cols="60" rows="6"  placeholder="Annonce Content"></textarea>
+                                                   class="control-label">Content</label>
+                                                 <textarea class="form-control"  name="Body"cols="60" rows="6"  placeholder="Advertesement Content"></textarea>
                                                
                                            
                                         </div>
                                         <br>
-                                        <h5>Signez ci-dessous</h5>
-                                        <canvas id="signature-pad" width="400" height="200"></canvas>
+                                        <div class="col">
+                                        <select id="Departement_id" class="form-controll" name="Departement_id">
+                                        <option value="">Departement ...</option>
+                                        
+                                        @foreach($departements as $departement)
+                                            <option value="{{$departement->id}}">{{$departement->nom}}</option>
+                                        @endforeach
+                                    </select>
+                                        </div>
+                                        
+                                       <div class="col">
+                                       <h5>Sign below</h5>
+                                        <canvas id="signature-pad" width="400" height="100"></canvas>
+                                       </div>
                                         <button type="button" id="clear-button" class="btn btn-outline-danger btn-sm">Effacer</button>
 <!-- Champ caché pour stocker les données de la signature -->
 <input type="hidden" id="signatureData" name="signatureData">

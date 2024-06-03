@@ -21,7 +21,7 @@ class Chatbox extends Component
     public $event_name;
     public $chat_page;
 
-    //protected $listeners = ['load_conversationEmploye',  Stagaire 'load_conversationStagaire', 'pushMessage'];
+    //protected $listeners = ['load_conversationEmploye', 'load_conversationSta', 'pushMessage'];
 
     public function mount()
     {
@@ -46,16 +46,15 @@ class Chatbox extends Component
             $auth_id = Auth::guard('employe')->user()->id;
             $this->event_name = "MassageSent";
             $this->chat_page = "chat";
-            //dd($auth_id);
         }
 
         return [
-            "echo-private:$this->chat_page.{$auth_id},$this->event_name" => 'broadcastMassage', 'load_conversationStagaire', 'load_conversationEmploye', 'pushMessage'
+            "echo-private:$this->chat_page.{$auth_id},$this->event_name" => 'broadcastMessage', 'load_conversationStagaire', 'load_conversationEmploye', 'pushMessage'
         ];
+        
     }
-    
 
-    public function broadcastMassage($event)
+    public function broadcastMessage($event)
     {
         $broadcastMessage = Message::find($event['message']);
         $broadcastMessage->read = 1;

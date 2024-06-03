@@ -32,7 +32,7 @@
                             <div class="form-group row">
                                 <label for="current_session" class="col-md-4 col-form-label text-md-right">{{ __('Current Year') }}<span class="text-danger">*</span></label>
                                 <div class="col-md-6">
-                                    <select id="current_session" class="form-control" name="current_session" required>
+                                    <select id="current_session" class="form-controll" name="current_session" required>
                                         <option value="">Choose...</option>
                                         @for($y = date('Y', strtotime('-3 years')); $y <= date('Y', strtotime('+1 years')); $y++)
                                             <option {{ ($setting['current_session'] == ($y . '-' . ($y + 1))) ? 'selected' : '' }}>{{ $y . '-' . ($y + 1) }}</option>

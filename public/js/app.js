@@ -4,7 +4,8 @@
 /***/ "./node_modules/@popperjs/core/lib/createPopper.js":
 /*!*********************************************************!*\
   !*** ./node_modules/@popperjs/core/lib/createPopper.js ***!
-  \*********************************************************/
+  \*********************************************************
+   key: 'ba72c80e67d1f5460b3d',/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -5220,12 +5221,12 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 //     wssPort: import.meta.env.VITE_PUSHER_PORT ?? 443,
 //     forceTLS: (import.meta.env.VITE_PUSHER_SCHEME ?? 'https') === 'https',
 //     enabledTransports: ['ws', 'wss'],
-// });
+// }); cart
 
 window.Pusher = __webpack_require__(/*! pusher-js */ "./node_modules/pusher-js/dist/web/pusher.js");
 window.Echo = new laravel_echo__WEBPACK_IMPORTED_MODULE_2__["default"]({
   broadcaster: 'pusher',
-  key: 'ba72c80e67d1f5460b3d',
+  key: '44b8d191ad338898ca13',
   cluster: 'mt1',
   forceTLS: true
 });
@@ -11364,7 +11365,7 @@ var Echo = /*#__PURE__*/function () {
       });
     }
     /**
-     * Register jQuery AjaxPrefilter to add the X-Socket-ID header.
+     * Register jQuery AjaxPrefilter to add the X-Socket-ID header. chart
      */
 
   }, {
@@ -11411,7 +11412,7 @@ var Echo = /*#__PURE__*/function () {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-// extracted by mini-css-extract-plugin
+// extracted by mini-css-extract-plugin 2020 50 breakup
 
 
 /***/ }),

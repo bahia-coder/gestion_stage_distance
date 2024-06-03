@@ -6,6 +6,7 @@ use App\Models\Demmande;
 use App\Models\Departement;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\StagaireCreated;
+use Illuminate\Validation\ValidationException;
 use App\Mail\refuseStagaire;
 use App\Models\Stagaire;
 use Illuminate\Http\Request;
@@ -15,18 +16,13 @@ use Illuminate\Support\Facades\Redirect;
 class DemmandeController extends Controller
 {
     use UploadImageTrait;
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    
     public function index()
     {
         $Departements=Departement::all();
         
         $demmandes = Demmande::where('status', 'current')->get();
 
-        // Passez les données des départements à la vue "welcome" en utilisant compact
         return view('pages.Demmandes.index', compact('demmandes','Departements'));
     
     }
@@ -74,7 +70,6 @@ class DemmandeController extends Controller
         
         $demmandes = Demmande::where('status', 'confirmed')->get();
 
-        // Passez les données des départements à la vue "welcome" en utilisant compact
         return view('pages.Demmandes.index', compact('demmandes','Departements'));
     
     }
@@ -83,7 +78,7 @@ class DemmandeController extends Controller
         
         $demmandes = Demmande::where('status', 'annuler')->get();
 
-        // Passez les données des départements à la vue "welcome" en utilisant compact
+  
         return view('pages.Demmandes.index', compact('demmandes','Departements'));
     
     }
@@ -102,90 +97,84 @@ class DemmandeController extends Controller
         //
     }
 
+
     public function store(Request $request)
     {
-        // Validate the incoming request data
-        $validatedData = $request->validate([
-            'Name' => 'required|string|max:255',
-            'Email' => 'required|email|unique:demmandes',
-            'Address' => 'required|string|max:255',
-            'Specialization_id' => 'required',
-            'Gender_id' => 'required',
-            'Date_debut' => 'required|date',
-            'Date_fin' => 'required|date',
-            'Telephone'=>'required|max:10'
-        ]);
-    
-        // Process the validated data and store the new demande
-        $demande = new Demmande();
-        $demande->Telephone = $validatedData['Telephone'];
-        $demande->FullName = $validatedData['Name'];
-        $demande->email = $validatedData['Email'];
-        $demande->Address = $validatedData['Address'];
-        $demande->password = bcrypt($validatedData['Name'] . '12345');
-        $demande->Departement_id = $validatedData['Specialization_id'];
-        $demande->Gender_id = $validatedData['Gender_id'];
-        $demande->Date_debut = $validatedData['Date_debut'];
-        $demande->Date_fin = $validatedData['Date_fin'];
-        
-        if ($request->hasFile('photo')) {
-            $path = $this->uploadImage($request, 'demande');
-            $demande->photo = $path;
-        }
-    
-        if ($request->hasFile('cv')) {
-            $path = $this->uploadCv($request, 'demande');
-            $demande->cv = $path;
+        try {
+            $validatedData = $request->validate([
+                'Name' => 'required|string|max:255',
+                'Email' => 'required|email|unique:demmandes',
+                'Address' => 'required|string|max:255',
+                'Specialization_id' => 'required',
+                'Gender_id' => 'required',
+                'Date_debut' => 'required|date|after_or_equal:today',
+    'Date_fin' => 'required|date|after:Date_debut',
+                'Telephone' => 'required|max:10'
+            ], [
+                'Name.required' => 'The name field is required.',
+                'Name.string' => 'The name field must be a string.',
+                'Name.max' => 'The name field must not exceed :max characters.',
+                'Email.required' => 'The email field is required.',
+                'Email.email' => 'Please enter a valid email address.',
+                'Email.unique' => 'This email address is already in use.',
+                'Date_debut.required' => 'The start date field is required.',
+                'Date_debut.date' => 'The start date must be a valid date.',
+                'Date_debut.after_or_equal' => 'The start date must be today or in the future.',
+                'Date_fin.required' => 'The end date field is required.',
+                'Date_fin.date' => 'The end date must be a valid date.',
+                'Date_fin.after' => 'The end date must be after the start date.',
+                'Telephone.required' => 'The telephone field is required.',
+            ]);
             
+            
+       
+            $demande = new Demmande();
+            $demande->Telephone = $validatedData['Telephone'];
+            $demande->FullName = $validatedData['Name'];
+            $demande->email = $validatedData['Email'];
+            $demande->Address = $validatedData['Address'];
+            $demande->password = bcrypt($validatedData['Name'] . '12345');
+            $demande->Departement_id = $validatedData['Specialization_id'];
+            $demande->Gender_id = $validatedData['Gender_id'];
+            $demande->Date_debut = $validatedData['Date_debut'];
+            $demande->Date_fin = $validatedData['Date_fin'];
+            
+            if ($request->hasFile('photo')) {
+                $path = $this->uploadImage($request, 'demande');
+                $demande->photo = $path;
+            }
+        
+            if ($request->hasFile('cv')) {
+                $path = $this->uploadCv($request, 'demande');
+                $demande->cv = $path;
+            }
+        
+            $demande->save();
+            return redirect()->route('acceuile')->with('message', 'Demande envoyée avec succès');
+       
+        } catch (ValidationException $e) {
+            return redirect()->route('acceuile')->with('error', 'Invalid data provided');
         }
-    
-        $demande->save();
-    
-        // Rediriger l'utilisateur après avoir ajouté la demande
-        return redirect()->route('in')->with('success', 'Demande added successfully');
     }
-    
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Demmande  $demmande
-     * @return \Illuminate\Http\Response
-     */
+   
     public function show(Demmande $demmande)
     {
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Demmande  $demmande
-     * @return \Illuminate\Http\Response
-     */
+    
     public function edit(Demmande $demmande)
     {
         //
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Demmande  $demmande
-     * @return \Illuminate\Http\Response
-     */
+    
     public function update(Request $request, Demmande $demmande)
     {
         //
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Demmande  $demmande
-     * @return \Illuminate\Http\Response
-     */
+    
     public function destroy(request $request)
     {
         

@@ -49,7 +49,7 @@
                         <div class="bg-info rounded d-flex align-items-center justify-content-between p-4">
                             <i class="fas fa-user-tie fa-3x text-dark"></i>
                             <div class="ms-3">
-                                <p class="mb-2">Employes</p>
+                                <p class="mb-2">Supervisors</p>
                                 <h6 class="mb-0">{{\App\Models\Employe::count()}}</h6>
                             </div>
                             <a href="{{route('Employe.index')}}" class="small-box-footer ">
@@ -62,7 +62,7 @@
                         <div class="bg-info rounded d-flex align-items-center justify-content-between p-4 icon">
                             <i class="fas fa-user-graduate fa-3x text-dark"></i>
                             <div class="ms-3">
-                                <p class="mb-2">Stagaires</p>
+                                <p class="mb-2">Trainees</p>
                                 <h6 class="mb-0">{{\App\Models\Stagaire::count()}}</h6>
                             </div>
                             <a href="{{route('Stagaire.index')}}" class="small-box-footer ">
@@ -79,7 +79,7 @@
           <div class="col-lg-8 d-flex align-items-strech">
             <div class="card w-100">
               <div class="card-body">
-              <h5 class="card-title mb-3 fw-semibold">Distribution of Employes and Stagaires by Departement</h5>
+              <h5 class="card-title mb-3 fw-semibold">Distribution of Supervisors and Trainees by Departement</h5>
               <canvas id="employeeChart"></canvas>
               </div>
             </div>
@@ -116,7 +116,7 @@
             <div class="tab nav-border" style="position: relative;">
                 <div class="d-block d-md-flex justify-content-between">
                     <div class="d-block w-100">
-                        <h5 style="font-family: 'Cairo', sans-serif" class="card-title">les dernier opperation sur system</h5>
+                        <h5 style="font-family: 'Cairo', sans-serif" class="card-title">The latest operations on the system</h5>
                     </div>
                     <div class="d-block d-md-flex nav-tabs-custom">
                         <ul class="nav nav-tabs" id="myTab" role="tablist">
@@ -124,24 +124,24 @@
                         <li class="nav-item">
                                 <a class="nav-link active show" id="students-tab" data-toggle="tab"
                                    href="#students" role="tab" aria-controls="students"
-                                   aria-selected="true"> Stagaires</a>
+                                   aria-selected="true"> Trainees </a>
                             </li>
 
                             <li class="nav-item">
                                 <a class="nav-link" id="teachers-tab" data-toggle="tab" href="#teachers"
-                                   role="tab" aria-controls="teachers" aria-selected="false">Employes
+                                   role="tab" aria-controls="teachers" aria-selected="false">Supervisors 
                                 </a>
                             </li>
 
                             <li class="nav-item">
                                 <a class="nav-link" id="parents-tab" data-toggle="tab" href="#parents"
-                                   role="tab" aria-controls="parents" aria-selected="false"> Demmandes de Stages
+                                   role="tab" aria-controls="parents" aria-selected="false">Internship Requests
                                 </a>
                             </li>
 
                             <li class="nav-item">
                                 <a class="nav-link" id="fee_invoices-tab" data-toggle="tab" href="#fee_invoices"
-                                   role="tab" aria-controls="fee_invoices" aria-selected="false">Annonces
+                                   role="tab" aria-controls="fee_invoices" aria-selected="false">Advertisements
                                 </a>
                             </li>
 
@@ -157,14 +157,14 @@
                                 <thead>
                                 <tr  class="table-info text-danger">
                                     <th>#</th>
-                                    <th>Stagaire_Name </th>
-                                    <th>Stagaire_Email </th>
-                                    <th>Stagaire_Telephone </th>
-                                    <th>Stagaire_Address </th>
+                                    <th>Full Name </th>
+                                    <th>Email </th>
+                                    <th>Phone </th>
+                                    <th>Address </th>
                                     <th>Gender</th>
                                     <th> Departement</th>
-                                    <th> Date_debut</th>
-                                    <th>Date_fin</th>
+                                    <th> start date</th>
+                                    <th>end date</th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -195,13 +195,13 @@
                                 <thead>
                                 <tr  class="table-info text-danger">
                                 <th>#</th>
-                                    <th>employe_Name </th>
-                                    <th>employe_Email </th>
-                                    <th>employe_Telephone </th>
-                                    <th>employe_Address </th>
+                                <th>Full Name </th>
+                                    <th>Email </th>
+                                    <th>Phone </th>
+                                    <th>Address </th>
                                     <th>Gender</th>
                                     <th> Departement</th>
-                                    <th> Joining_Date</th>
+                                    <th> Date of Joining</th>
                                 </tr>
                                 </thead>
 
@@ -231,14 +231,14 @@
                                 <thead>
                                 <tr  class="table-info text-danger">
                                 <th>#</th>
-                                    <th>Name </th>
+                                <th>Full Name </th>
                                     <th>Email </th>
-                                    <th>Telephone </th>
+                                    <th>Phone </th>
                                     <th>Address </th>
                                     <th>Gender</th>
                                     <th> Departement</th>
-                                    <th> Date_debut</th>
-                                    <th>Date_fin</th>
+                                    <th> start date</th>
+                                    <th>end date</th>
                                     <th>cv</th>
                                 </tr>
                                 </thead>
@@ -273,7 +273,7 @@
                                     <th>#</th>
                                     <th>Title </th>
                                     <th>download </th>
-                                    <th>Date_creation </th>
+                                    <th>creation date</th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -353,13 +353,13 @@ Departements_emp.forEach(departement => {
        const data = {
            labels: departements.map(departement => departement.nom),
            datasets: [{
-               label: 'Employés',
+               label: 'Supervisors',
                data: employesData,
                backgroundColor: 'rgba(54, 162, 235, 0.5)',
                borderColor: 'rgba(54, 162, 235, 1)',
                borderWidth: 1
            }, {
-               label: 'Stagiaires',
+               label: 'Trainees',
                data: stagiairesData,
                backgroundColor: 'rgba(255, 99, 132, 0.5)',
                borderColor: 'rgba(255, 99, 132, 1)',

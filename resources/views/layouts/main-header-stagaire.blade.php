@@ -1,18 +1,62 @@
 <!--  Header Start  profile-->
 <header class="app-header">
         <nav class="navbar navbar-expand-lg navbar-light">
-          <ul class="navbar-nav">
+          <ul class="navbar-nav flex-row ms-auto align-items-center">
             <li class="nav-item d-block d-xl-none">
               <a class="nav-link sidebartoggler nav-icon-hover" id="headerCollapse" href="javascript:void(0)">
                 <i class="ti ti-menu-2"></i>
               </a>
             </li>
-            <li class="nav-item">
-              <a class="nav-link nav-icon-hover" href="javascript:void(0)">
-                <i class="ti ti-bell-ringing"></i>
-                <div class="notification bg-primary rounded-circle"></div>
-              </a>
-            </li>
+            <li class="nav-item dropdown">
+    <a class="nav-link" href="#" id="notificationDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <i class="ti ti-bell-ringing"></i>
+        <div class="notification bg-primary rounded-circle"></div>
+    </a>
+    <div class="dropdown-menu dropdown-menu-left" aria-labelledby="notificationDropdown">
+        <div class="col-lg-12 col-sm-12 col-12">
+            <span>Notifications ({{ auth('stagaire')->user()->unreadNotifications->count() }})</span>
+            <a href="" class="float-right text-light">Mark all as read</a>
+        </div>
+        <!-- Notifications -->
+        @foreach(auth('stagaire')->user()->unreadNotifications()->whereType('App\Notifications\CreateAnnonce')->get() as $notification)
+        <a href="{{ route('annonce.pdf', $notification->data['annonce_id']) }}" class="dropdown-item">
+            <div class="notification-box">
+                <div class="row">
+                    <div class="col-lg-8 col-sm-8 col-8">
+                    <div><strong class="text-info">Annonce:</strong>{{ $notification->data['annonce_title'] }}</div>
+                        
+                        
+                        <small class="text-warning">{{ $notification->created_at }}</small>
+                    </div>
+                </div>
+            </div>
+        </a>
+        @endforeach
+        @if((auth('stagaire')->user()->unreadNotifications()->whereType('App\Notifications\CreateTache')->count())!=0)
+        <a href="/Tasks" class="dropdown-item">
+            <div class="notification-box">
+                <div class="row">
+                    <div class="col-lg-8 col-sm-8 col-8">
+                    <div><strong class="text-info">{{auth('stagaire')->user()->unreadNotifications()->whereType('App\Notifications\CreateTache')->count()}} new tasks have been created.</strong></div>
+                    </div>
+                </div>
+            </div>
+        </a>
+        @endif
+        @if((auth('stagaire')->user()->unreadNotifications()->whereType('App\Notifications\CreateMeeting')->count())!=0)
+        <a href="/Meetings" class="dropdown-item">
+            <div class="notification-box">
+                <div class="row">
+                    <div class="col-lg-8 col-sm-8 col-8">
+                    <div><strong class="text-info">{{auth('stagaire')->user()->unreadNotifications()->whereType('App\Notifications\CreateMeeting')->count()}} new Meetings have been created.</strong></div>
+                    </div>
+                </div>
+            </div>
+        </a>
+      @endif
+    </div>
+</li>
+
           </ul>
           <div class="navbar-collapse justify-content-end px-0" id="navbarNav">
             <ul class="navbar-nav flex-row ms-auto align-items-center justify-content-end">

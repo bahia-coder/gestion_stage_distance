@@ -39,18 +39,22 @@
                             @csrf
                             <div class="form-row">
                                                <div class="col">
-                                    <label for="Name">Name</label>
+                                    <label for="Name">Full Name</label>
                                     <input type="text" name="Name" class="form-control" value="{{$employe->FullName}}">
                                     <input type="hidden" name="id" value="{{$employe->id}}">
                                     @error('Name')
-                                    <div class="alert alert-danger">{{ $message }}</div>
+                                     <i class="fa fa-exclamation-circle text-danger"></i> <!-- Icône d'erreur FontAwesome -->
+            
+            <label class="text-danger">{{ $message }}</label>
                                     @enderror
                                 </div>
                                 <div class="col">
                                     <label for="Email">Email</label>
                                     <input type="Email" name="Email" class="form-control" value="{{$employe->email}}">
                                     @error('Email')
-                                    <div class="alert alert-danger">{{ $message }}</div>
+                                     <i class="fa fa-exclamation-circle text-danger"></i> <!-- Icône d'erreur FontAwesome -->
+            
+            <label class="text-danger">{{ $message }}</label>
                                     @enderror
                                 </div>
                             </div>
@@ -62,14 +66,18 @@
                                     <label for="Address">Address</label>
                                     <input type="text" name="Address" class="form-control" value="{{$employe->Address}}">
                                     @error('Address')
-                                    <div class="alert alert-danger">{{ $message }}</div>
+                                     <i class="fa fa-exclamation-circle text-danger"></i> <!-- Icône d'erreur FontAwesome -->
+            
+            <label class="text-danger">{{ $message }}</label>
                                     @enderror
                                 </div>
                                 <div class="col">
                                     <label for="password"  >password</label>
                                     <input disabled  type="password" name="password" class="form-control" value="{{$employe->password}}">
                                     @error('password')
-                                    <div class="alert alert-danger">{{ $message }}</div>
+                                     <i class="fa fa-exclamation-circle text-danger"></i> <!-- Icône d'erreur FontAwesome -->
+            
+            <label class="text-danger">{{ $message }}</label>
                                     @enderror
                                 </div>
                             </div>
@@ -83,7 +91,9 @@
                                         @endforeach
                                     </select>
                                     @error('Specialization_id')
-                                    <div class="alert alert-danger">{{ $message }}</div>
+                                     <i class="fa fa-exclamation-circle text-danger"></i> <!-- Icône d'erreur FontAwesome -->
+            
+            <label class="text-danger">{{ $message }}</label>
                                     @enderror
                                 </div>
                                 <div class="form-group col">
@@ -94,7 +104,9 @@
                                         @endforeach
                                     </select>
                                     @error('Gender_id')
-                                    <div class="alert alert-danger">{{ $message }}</div>
+                                     <i class="fa fa-exclamation-circle text-danger"></i> <!-- Icône d'erreur FontAwesome -->
+            
+            <label class="text-danger">{{ $message }}</label>
                                     @enderror
                                 </div>
                             </div>
@@ -105,15 +117,17 @@
 
 
                                     <div class="col">
-        <label for="Joining_Date">Joining_Date</label>
+        <label for="Joining_Date"> Date of Joining</label>
         <input type="date" class="form-control" id="Joining_Date" name="Joining_Date" value="{{$employe->Joining_Date}}">
         @error('Joining_Date')
-            <div class="alert alert-danger">{{ $message }}</div>
+             <i class="fa fa-exclamation-circle text-danger"></i> <!-- Icône d'erreur FontAwesome -->
+            
+            <label class="text-danger">{{ $message }}</label>
         @enderror
 
                                 </div>
                                 <div class="col">
-        <label for="Telephone">Telephone</label>
+        <label for="Telephone">Phone</label>
         <input type="text" class="form-control" id="Telephone" value="{{$employe->telephone}}" name="Telephone" placeholder="06 - - - - - - - -">
         @error('Telephone')   
         <i class="fa fa-exclamation-circle text-danger"></i> <!-- Icône d'erreur FontAwesome -->
@@ -125,7 +139,7 @@
                                 <div class="col">
                                     
                             <label for="photo"
-                                                   class="control-label">Department Photo</label>
+                                                   class="control-label">supervisor Photo</label>
                                         <br>
                                                    <input class="form-control" type="file" name="photo" value="{{asset('storage/imgs/'.$employe->photo) }}">
                                     

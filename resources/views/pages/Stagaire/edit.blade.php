@@ -39,18 +39,22 @@
                             @csrf
                             <div class="form-row">
                                                <div class="col">
-                                    <label for="Name">Name</label>
+                                    <label for="Name">Full Name</label>
                                     <input type="text" name="Name" class="form-control" value="{{$stagaire->FullName}}">
                                     <input type="hidden" name="id" value="{{$stagaire->id}}">
                                     @error('Name')
-                                    <div class="alert alert-danger">{{ $message }}</div>
+                                     <i class="fa fa-exclamation-circle text-danger"></i> <!-- Icône d'erreur FontAwesome -->
+            
+            <label class="text-danger">{{ $message }}</label>
                                     @enderror
                                 </div>
                                 <div class="col">
                                     <label for="Email">Email</label>
                                     <input type="Email" name="Email" class="form-control" value="{{$stagaire->email}}">
                                     @error('Email')
-                                    <div class="alert alert-danger">{{ $message }}</div>
+                                     <i class="fa fa-exclamation-circle text-danger"></i> <!-- Icône d'erreur FontAwesome -->
+            
+            <label class="text-danger">{{ $message }}</label>
                                     @enderror
                                 </div>
                             </div>
@@ -62,14 +66,18 @@
                                     <label for="Address">Address</label>
                                     <input type="text" name="Address" class="form-control" value="{{$stagaire->Address}}">
                                     @error('Address')
-                                    <div class="alert alert-danger">{{ $message }}</div>
+                                     <i class="fa fa-exclamation-circle text-danger"></i> <!-- Icône d'erreur FontAwesome -->
+            
+            <label class="text-danger">{{ $message }}</label>
                                     @enderror
                                 </div>
                                 <div class="col">
                                     <label for="password"  >password</label>
                                     <input disabled  type="password" name="password" class="form-control" value="{{$stagaire->password}}">
                                     @error('password')
-                                    <div class="alert alert-danger">{{ $message }}</div>
+                                     <i class="fa fa-exclamation-circle text-danger"></i> <!-- Icône d'erreur FontAwesome -->
+            
+            <label class="text-danger">{{ $message }}</label>
                                     @enderror
                                 </div>
                             </div>
@@ -83,7 +91,9 @@
                                         @endforeach
                                     </select>
                                     @error('Specialization_id')
-                                    <div class="alert alert-danger">{{ $message }}</div>
+                                     <i class="fa fa-exclamation-circle text-danger"></i> <!-- Icône d'erreur FontAwesome -->
+            
+            <label class="text-danger">{{ $message }}</label>
                                     @enderror
                                 </div>
                                 <div class="form-group col">
@@ -94,7 +104,9 @@
                                         @endforeach
                                     </select>
                                     @error('Gender_id')
-                                    <div class="alert alert-danger">{{ $message }}</div>
+                                     <i class="fa fa-exclamation-circle text-danger"></i> <!-- Icône d'erreur FontAwesome -->
+            
+            <label class="text-danger">{{ $message }}</label>
                                     @enderror
                                 </div>
                             </div>
@@ -105,23 +117,27 @@
 
 
                                     <div class="col">
-        <label for="Date_debut">Date_debut</label>
+        <label for="Date_debut">Start Date</label>
         <input type="date" class="form-control" id="Date_debut" name="Date_debut" value="{{$stagaire->Date_debut}}">
         @error('Date_debut')
-            <div class="alert alert-danger">{{ $message }}</div>
+             <i class="fa fa-exclamation-circle text-danger"></i> <!-- Icône d'erreur FontAwesome -->
+            
+            <label class="text-danger">{{ $message }}</label>
         @enderror
 
                                 </div>
                                 <div class="col">
-        <label for="Date_fin">Date_fin</label>
+        <label for="Date_fin">End Date</label>
         <input type="date" class="form-control" id="Date_fin" name="Date_fin" value="{{$stagaire->Date_fin}}">
         @error('Date_fin')
-            <div class="alert alert-danger">{{ $message }}</div>
+             <i class="fa fa-exclamation-circle text-danger"></i> <!-- Icône d'erreur FontAwesome -->
+            
+            <label class="text-danger">{{ $message }}</label>
         @enderror
 
                                 </div>
                                 <div class="col">
-        <label for="Telephone">Telephone</label>
+        <label for="Telephone">Phone</label>
         <input type="text" class="form-control" id="Telephone" value="{{$stagaire->telephone}}" name="Telephone" placeholder="06 - - - - - - - -">
         @error('Telephone')   
         <i class="fa fa-exclamation-circle text-danger"></i> <!-- Icône d'erreur FontAwesome -->
@@ -133,7 +149,7 @@
                                 <div class="col">
                                     
                             <label for="photo"
-                                                   class="control-label">Department Photo</label>
+                                                   class="control-label">trainee Photo</label>
                                         <br>
                                                    <input class="form-control" type="file" name="photo" value="{{asset('storage/imgs/'.$stagaire->photo) }}">
                                     

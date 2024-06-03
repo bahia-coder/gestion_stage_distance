@@ -10,6 +10,6 @@ class Token extends Model
     use HasFactory;
     protected $fillable = [
         'access_token',
-            'refresh_token',// Ajoutez ici les autres champs que vous souhaitez autoriser pour l'attribution de masse
+            'refresh_token',
     ];
 }

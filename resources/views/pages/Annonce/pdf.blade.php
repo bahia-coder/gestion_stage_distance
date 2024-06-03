@@ -27,7 +27,7 @@
         .logo img {
             width: 100px;
             height: 100px;
-            border-radius: 50%;
+            border-radius: 20%;
         }
 
         .company-name {
@@ -76,14 +76,16 @@
 <body>
     <div class="container">
         <div class="logo">
-            <img src="https://th.bing.com/th/id/OIP.V1Yh5BrI7AUssNE4zmXD5AHaIq?pid=ImgDet&rs=1" alt="Logo de la société">
+        <img src="assets/images/logo.png" width="100" height="100"  alt="" />
+
         </div>
         <div class="company-name">
-            Nom de la société
+        Le {{ $annonce->created_at }}
+
         </div>
         <div class="announcement">
-            <h1>Annonce</h1>
-            <h4>{{ $annonce->Title }}</h4>
+            <h3>Annonce To departement:{{App\Models\Departement::where('id',$annonce->Departement_id)->value('nom')}}</h3>
+            <h4><strong style="color:blue">TITLE:</strong>{{ $annonce->Title }}</h4>
             <p>{{ $annonce->Body }}</p>
         </div>
         <div class="signature">

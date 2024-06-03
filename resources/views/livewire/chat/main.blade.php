@@ -45,7 +45,10 @@
 <!-- main-content closed -->
 @endsection
 @section('js')
-    
+      <!--Internal  lightslider js -->
+      <script src="{{URL::asset('Dashboard/plugins/lightslider/js/lightslider.min.js')}}"></script>
+    <!--Internal  Chat js -->
+    <script src="{{URL::asset('Dashboard/js/chat.js')}}"></script>
     <script>
         Livewire.hook('message.processed', function () {
             var chatBody = document.getElementById("ChatBody");

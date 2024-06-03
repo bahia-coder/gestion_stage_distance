@@ -25,3 +25,4 @@ Broadcast::channel('chat2.{receiver_id}', function (Stagaire $user, $receiver_id
     return $user->id == $receiver_id;
 }, ['guards' => ['web', 'stagaire', 'employe', 'api']]);
 
+

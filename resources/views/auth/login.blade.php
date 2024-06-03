@@ -8367,14 +8367,8 @@ h1, h2, h3, h4, h5,
 			      </div>
 						<div class="login-wrap p-4 p-md-5">
 			      	<div class="d-flex">
-			      		<div class="w-100">
-							  @if($type == 'stagaire')
-							  <h3 class="mb-4">Welcome back Stagaire!</h3>
-                        @elseif($type == 'employe')
-						<h3 class="mb-4">Welcome back Employe!</h3>
-                        @elseif($type == 'admin')
-						<h3 class="mb-4">Welcome back Admin!</h3>
-                        @endif
+			      		<div class="w-200">
+							  <h3 class="mb-4">Welcome back!</h3>
 						
 			      		</div>
 								<div class="w-100">

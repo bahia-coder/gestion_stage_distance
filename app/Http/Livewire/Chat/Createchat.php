@@ -31,7 +31,6 @@ class Createchat extends Component
                     'receiver_email' => $receiver_email,
                     'last_time_message' => null,
                 ]);
-                // create message
                 Message::create([
                     'conversation_id' => $createConversation->id,
                     'sender_email' => $this->auth_email,
