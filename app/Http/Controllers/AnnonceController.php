@@ -85,7 +85,7 @@ class AnnonceController extends Controller
     {
         Annonce::findOrFail($request->id)->delete();
         return Redirect::route('annonce.index')->with([
-            'success'=>'annonce deleted successfully'
+            'message'=>'annonce deleted successfully'
         ]);;
     }
     public function pdf($id){

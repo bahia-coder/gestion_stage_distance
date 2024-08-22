@@ -999,51 +999,52 @@ $('document').ready(function(){
 	});
 });
    </script>
-   <script>
-$(document).ready(function() {
-    var events = [];
+  <script>
+    $(document).ready(function() {
+        var events = [];
 
-    @foreach($projects as $project)
-        events.push({
-            title: '{{ $project->nom }}',
-            start: '{{ $project->Date_Expire }}',
-            color: '#FF0000 '
+        @foreach($projects as $project)
+            events.push({
+                title: '{{ $project->nom }}',
+                start: '{{ $project->Date_Expire }}',
+                color: '#FF0000 '
+            });
+        @endforeach
+
+        $('#calendar').fullCalendar({
+            events: events,
+            header: false,
+            eventRender: function(event, element) {
+                // Ajouter une info-bulle avec le nom complet du projet
+                element.attr('title', event.title);
+                // Modifier la taille de la police du titre
+                element.find('.fc-title').css('font-size', '15px'); // Vous pouvez ajuster la taille de la police selon vos besoins
+            },
+            viewRender: function(view, element) {
+                var prevButton = $('<button class="custom-prev-button">&lt;</button>');
+                var nextButton = $('<button class="custom-next-button">&gt;</button>');
+
+                $('.fc-prev-button, .fc-next-button').remove();
+
+                $('#calendar').append(prevButton);
+                $('#calendar').append(nextButton);
+
+                prevButton.on('click', function() {
+                    $('#calendar').fullCalendar('prev');
+                });
+
+                nextButton.on('click', function() {
+                    $('#calendar').fullCalendar('next');
+                });
+
+                var calendarTitle = $('#calendar').fullCalendar('getView').title;
+
+                $('#calendar h2').remove();
+
+                $('#calendar').prepend('<h2>' + calendarTitle + '</h2>');
+            }
         });
-    @endforeach
-
-    $('#calendar').fullCalendar({
-        events: events,
-        header: false,
-        eventRender: function(event, element) {
-            // Ajouter une info-bulle avec le nom complet du projet
-            element.attr('title', event.title);
-        },
-        viewRender: function(view, element) {
-            var prevButton = $('<button class="custom-prev-button">&lt;</button>');
-            var nextButton = $('<button class="custom-next-button">&gt;</button>');
-
-            $('.fc-prev-button, .fc-next-button').remove();
-
-            $('#calendar').append(prevButton);
-            $('#calendar').append(nextButton);
-
-            prevButton.on('click', function() {
-                $('#calendar').fullCalendar('prev');
-            });
-
-            nextButton.on('click', function() {
-                $('#calendar').fullCalendar('next');
-            });
-
-            var calendarTitle = $('#calendar').fullCalendar('getView').title;
-
-            $('#calendar h2').remove();
-
-            $('#calendar').prepend('<h2>' + calendarTitle + '</h2>');
-        }
     });
-});
+</script>
 
-
-    </script>
 @endsection

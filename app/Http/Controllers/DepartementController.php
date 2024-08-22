@@ -110,7 +110,7 @@ class DepartementController extends Controller
         
     Departement::findOrFail($request->id)->delete();
     return Redirect::route('Departement.index')->with([
-        'success'=>'Departement deleted successfully'
+        'message'=>'Departement deleted successfully'
     ]);;
     }
 }

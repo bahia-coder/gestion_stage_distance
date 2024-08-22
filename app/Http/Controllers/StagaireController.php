@@ -141,7 +141,7 @@ class StagaireController extends Controller
         }
         $stagaire->save();
         Mail::to($stagaire->email)->send(new StagaireCreated($stagaire));
-        return redirect()->route('Stagaire.index')->with('success', 'Stagiaire added successfully');
+        return redirect()->route('Stagaire.index')->with('message', 'Stagiaire added successfully');
     }
       
 
@@ -214,7 +214,7 @@ public function update(Request $request)
 
     $stagaire->save();
 
-    return redirect()->route('Stagaire.index')->with('success', 'Stagaire updated successfully');
+    return redirect()->route('Stagaire.index')->with('message', 'Stagaire updated successfully');
 }
 
     public function destroy(request $request)
@@ -222,7 +222,7 @@ public function update(Request $request)
         
     Stagaire::findOrFail($request->id)->delete();
     return Redirect::route('Stagaire.index')->with([
-        'success'=>'Stagaire deleted successfully'
+        'message'=>'Stagaire deleted successfully'
     ]);;
     }
     public function certificat(){

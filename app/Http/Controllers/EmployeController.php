@@ -216,7 +216,7 @@ public function update(Request $request)
         
     Employe::findOrFail($request->id)->delete();
     return Redirect::route('Employe.index')->with([
-        'success'=>'Departement deleted successfully'
+        'message'=>'Departement deleted successfully'
     ]);;
     }
 }
